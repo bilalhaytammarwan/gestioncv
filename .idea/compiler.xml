@@ -7,17 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="discovory" />
         <module name="config-server" />
+        <module name="discovory" />
         <module name="gateway" />
       </profile>
-      <profile name="Annotation profile for annonce" enabled="true">
+      <profile name="Annotation profile for attachement-module" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
+        <module name="attachement" />
         <module name="annonce" />
       </profile>
     </annotationProcessing>
@@ -25,6 +26,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="annonce" options="-parameters" />
+      <module name="attachement" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="discovory" options="-parameters" />
       <module name="gateway" options="-parameters" />
