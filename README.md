@@ -1,4 +1,4 @@
-## Running the Project with Maven & Docker Compose
+## Running with Maven & Docker Compose
 
 ### Build the Project with Maven
 Make sure you're in the root folder of the project, then run:
