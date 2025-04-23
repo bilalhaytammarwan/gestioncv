@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: User-Token
+  data:
+    mongodb:
+      host: mongo
+      port: 27017
+      database: Auth_service_DB
+      username: admin
+      password: admin
+      authentication-database: admin
+
+jwt:
+  Hmac-secret: "CqARLzJ/cU6OYYqMAC33pRIrcHX6jRRQ176WoCZ34K4="
+
+server:
+  port: 8228
