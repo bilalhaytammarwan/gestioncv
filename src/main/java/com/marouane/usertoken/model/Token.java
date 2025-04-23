@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -25,6 +26,7 @@ public class Token {
 
     @NotBlank(message = "Token must not be blank")
     @Size(min = 10, max = 500, message = "Token length must be between 10 and 500 characters")
+    @Indexed(unique = true)
     private String token;
 
     @NotNull(message = "Token type must not be null")

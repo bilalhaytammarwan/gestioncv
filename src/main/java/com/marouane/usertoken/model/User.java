@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -38,11 +39,13 @@ public abstract class User {
     @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^\\+?[1-9]\\d{7,14}$", message = "Invalid phone number format")
     @ValidPhoneNumber(message = "Invalid phone number format")
+    @Indexed(unique = true)
     private String telephone;
 
     @NotNull(message = "Email must not be null")
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
+    @Indexed(unique = true)
     private String email;
 
     @NotNull(message = "Password must not be null")

@@ -12,9 +12,7 @@ services:
       - mongo-data-user-token:/data/db
 
   user-token-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: marouane0710/user-token-app:v2
     depends_on:
       - mongo
     ports:
