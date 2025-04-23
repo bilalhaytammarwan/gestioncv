@@ -13,6 +13,9 @@ services:
 
   user-token-app:
     image: marouane0710/user-token-app:v2
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
     depends_on:
       - mongo
     ports:
