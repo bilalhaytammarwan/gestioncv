@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: Opportunity-service
+  data:
+    mongodb:
+      host: mongo
+      port: 27017
+      database: opportunity_service_DB
+      username: admin
+      password: admin
+      authentication-database: admin
+      auto-index-creation: true
+server:
+  port: 8338
+

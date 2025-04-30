@@ -1,0 +1,25 @@
+#version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27013:27017"
+    volumes:
+      - mongo-data-opportunity-service:/data/db
+
+  opportunity-service-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo
+    ports:
+      - "8338:8338"
+
+volumes:
+  mongo-data-opportunity-service:
+    driver: local
