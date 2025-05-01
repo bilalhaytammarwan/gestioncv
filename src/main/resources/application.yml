@@ -1,0 +1,25 @@
+
+spring:
+  data:
+    mongodb:
+
+      database: pensive_volhard
+      host: localhost
+      port: 27019
+
+
+  application:
+    name: annonce
+  config:
+    import: optional:configserver:http://localhost:8888
+server:
+  port: 8090
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+application:
+  url:
+    user-url:http://localhost:8228/api/user
