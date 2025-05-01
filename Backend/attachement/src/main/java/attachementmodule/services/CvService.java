@@ -28,7 +28,7 @@ public class CvService {
         this.repository = repository;
     }
 
-    public String addCv(MultipartFile file) throws IOException {
+    public String addCv(MultipartFile file,String userId) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
@@ -49,6 +49,7 @@ public class CvService {
         cv.setProfil(newFileName);
         cv.setType(AttachementType.CV);
         cv.setAddedAt(LocalDateTime.now());
+        cv.setUserId(userId);
         repository.save(cv);
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
@@ -56,21 +57,21 @@ public class CvService {
     }
 
     public Cv getCv(String userId) {
-        Cv cv = repository.findById(userId).filter(cv1 -> cv1.getType().equals(AttachementType.CV)).orElse(null);
+        Cv cv = repository.findById(userId).get();
         if (cv == null) {
             throw new RuntimeException("File not found");
         }
         return cv;
     }
     public void deleteCv(String userId) {
-        Cv cv = repository.findById(userId).filter(cv1 -> cv1.getType().equals(AttachementType.CV)).orElse(null);
+        Cv cv = repository.findById(userId).get();
         if (cv == null) {
             throw new RuntimeException("File not found");
         }
         repository.delete(cv);
     }
     public void updateCv(String userId, MultipartFile file) throws IOException {
-        Cv cv = repository.findById(userId).filter(cv1 -> cv1.getType().equals(AttachementType.CV)).orElse(null);
+        Cv cv = repository.findById(userId).get();
         if (cv == null) {
             throw new RuntimeException("File not found");
         }

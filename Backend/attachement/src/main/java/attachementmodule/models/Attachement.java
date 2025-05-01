@@ -16,14 +16,14 @@ public class Attachement {
     private String profil;
     private AttachementType type;
     private LocalDateTime addedAt;
-    private User user;
+    private String userId;
 
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getId() {

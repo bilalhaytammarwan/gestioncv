@@ -29,7 +29,7 @@ public class ImageService {
     public ImageService(AttachementRepository repository) {
         this.repository = repository;
     }
-    public String addImage(MultipartFile file) throws IOException {
+    public String addImage(MultipartFile file,String userId) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
@@ -49,6 +49,7 @@ public class ImageService {
         Attachement attachement = new Attachement();
         attachement.setProfil(newFileName);
         attachement.setType(AttachementType.IMAGE);
+        attachement.setUserId(userId);
         attachement.setAddedAt(LocalDateTime.now());
         repository.save(attachement);
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -57,7 +58,7 @@ public class ImageService {
     }
 
     public Attachement getImage(String userId) {
-        Attachement attachement = repository.findById(userId).filter(attachement1 -> attachement1.getType().equals(AttachementType.IMAGE)).orElse(null);
+        Attachement attachement = repository.findByTypeAndUserId(AttachementType.IMAGE, userId).get();
         if (attachement == null) {
             return null;
         }
@@ -65,13 +66,13 @@ public class ImageService {
     }
 
     public void deleteImage(String userId) {
-        Attachement attachement = repository.findById(userId).filter(attachement1 -> attachement1.getType().equals(AttachementType.IMAGE)).orElse(null);
+        Attachement attachement = repository.findByTypeAndUserId(AttachementType.IMAGE, userId).get();
         if (attachement != null) {
             repository.delete(attachement);
         }
     }
     public void updateImage(String userId, MultipartFile file) throws IOException {
-        Attachement attachement = repository.findById(userId).filter(attachement1 -> attachement1.getType().equals(AttachementType.IMAGE)).orElse(null);
+        Attachement attachement = repository.findByTypeAndUserId(AttachementType.IMAGE, userId).get();
         if (attachement != null) {
             String fileName = file.getOriginalFilename();
             String fileType = file.getContentType().split("/")[1];

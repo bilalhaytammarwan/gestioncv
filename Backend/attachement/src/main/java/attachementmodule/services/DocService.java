@@ -27,7 +27,7 @@ public class DocService {
     public DocService(AttachementRepository repository) {
         this.repository = repository;
     }
-    public String addDoc(MultipartFile file) throws IOException {
+    public String addDoc(MultipartFile file,String userId) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
@@ -47,13 +47,14 @@ public class DocService {
         attachement.setProfil(newFileName);
         attachement.setType(AttachementType.LEGAL_DOCUMENT);
         attachement.setAddedAt(LocalDateTime.now());
+        attachement.setUserId(userId);
         repository.save(attachement);
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
         return filePath.toString();
     }
     public Attachement getDoc(String userId) {
-        Attachement attachement = repository.findById(userId).filter(attachement1 -> attachement1.getType().equals(AttachementType.LEGAL_DOCUMENT)).orElse(null);
+        Attachement attachement = repository.findByTypeAndUserId(AttachementType.LEGAL_DOCUMENT, userId).get();
         if (attachement == null) {
             throw new RuntimeException("File not found");
         }
@@ -61,14 +62,14 @@ public class DocService {
     }
 
     public void deleteDoc(String userId) {
-        Attachement attachement = repository.findById(userId).filter(attachement1 -> attachement1.getType().equals(AttachementType.LEGAL_DOCUMENT)).orElse(null);
+        Attachement attachement = repository.findByTypeAndUserId(AttachementType.LEGAL_DOCUMENT, userId).get();
         if (attachement == null) {
             throw new RuntimeException("File not found");
         }
         repository.delete(attachement);
     }
     public void updateDoc(String userId, MultipartFile file) throws IOException {
-        Attachement attachement = repository.findById(userId).filter(attachement1 -> attachement1.getType().equals(AttachementType.LEGAL_DOCUMENT)).orElse(null);
+        Attachement attachement = repository.findByTypeAndUserId(AttachementType.LEGAL_DOCUMENT, userId).get();
         if (attachement == null) {
             throw new RuntimeException("File not found");
         }

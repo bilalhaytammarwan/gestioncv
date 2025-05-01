@@ -21,10 +21,10 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<String> AddImage(@RequestParam("image") MultipartFile file) {
+    public ResponseEntity<String> AddImage(@RequestParam("image") MultipartFile file,@RequestParam("userId") String userId) {
         try {
             // Save the file to the directory
-            String filePath = imageService.addImage(file);
+            String filePath = imageService.addImage(file,userId);
             return ResponseEntity.ok("Image uploaded successfully ");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
