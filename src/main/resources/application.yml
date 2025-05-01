@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: User-Token
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: mongodb_container
+  cloud:
+    config:
+      uri: http://localhost:8888
+  config:
+    import: optional:configserver:http://localhost:8888
+
+jwt:
+  Hmac-secret: "CqARLzJ/cU6OYYqMAC33pRIrcHX6jRRQ176WoCZ34K4="
+
+server:
+  port: 8228
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
