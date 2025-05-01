@@ -1,6 +1,8 @@
 package com.marouane.usertoken.controller;
 
+
 import com.marouane.usertoken.model.Annonce;
+
 import com.marouane.usertoken.model.Role;
 import com.marouane.usertoken.model.User;
 import com.marouane.usertoken.service.UserService;
@@ -65,6 +67,7 @@ public class UserController {
         List<User> users = userService.getUsersByRole(validRole);
         return ResponseEntity.ok(users);
     }
+
     @PutMapping("/update/notification")
         public void updateUserNotification(@RequestPart("annonce") Annonce annonce, @Valid @RequestPart("user") User userInfo){
         userService.addtolistnotification(annonce, userInfo);

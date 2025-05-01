@@ -13,7 +13,9 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+
 import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -67,6 +69,8 @@ public abstract class User {
     @NotNull(message = "Ville must not be null")
     @NotBlank(message = "City is required")
     private String ville;
+
     private List<Annonce> notification;
+
 
 }

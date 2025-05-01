@@ -5,15 +5,19 @@ import com.marouane.usertoken.exception.user.UserCreationException;
 import com.marouane.usertoken.exception.user.UserDeleteException;
 import com.marouane.usertoken.exception.user.UserGetException;
 import com.marouane.usertoken.exception.user.UserUpdateException;
+
 import com.marouane.usertoken.model.Annonce;
+
 import com.marouane.usertoken.model.Role;
 import com.marouane.usertoken.model.User;
 import com.marouane.usertoken.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,6 +27,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class UserService {
+
     private MongoTemplate mongoTemplate;
     private final UserRepository userRepository;
 //    private final BCryptPasswordEncoder encoder;
@@ -30,6 +35,13 @@ public class UserService {
     public UserService(UserRepository userRepository, MongoTemplate mongoTemplate) {
         this.userRepository = userRepository;
         this.mongoTemplate = mongoTemplate;
+
+    }
+//    private final BCryptPasswordEncoder encoder;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+
 //        this.encoder = new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2Y,12);
     }
 
@@ -112,6 +124,7 @@ public class UserService {
             throw new UserDeleteException("Failed to delete user");
         }
     }
+
     public void addtolistnotification(Annonce annonce,User user) {
         List<Annonce>notifications=user.getNotification();
         notifications.add(annonce);
@@ -120,4 +133,5 @@ public class UserService {
         Update update = new Update().set("notification", notifications);
         mongoTemplate.updateFirst(query, update, User.class);
     }
+
 }
