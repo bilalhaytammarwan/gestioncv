@@ -3,14 +3,23 @@ import { Box, Typography, Pagination, CircularProgress, Button, useMediaQuery, u
 import { SlidersHorizontal } from 'lucide-react';
 import JobCard from './JobCard';
 import JobFilters from './JobFilters';
-import { jobsData, Job } from '../../data/jobsData';
+import { jobsData, Job, groupingMap } from '../../data/jobsData';
+import { filterByJobType, filterBySalaryRange, filterByCategory } from '../../filters/Filter';
+import axios from 'axios';
 
 interface JobListProps {
   searchQuery?: string;
   locationFilter?: string;
+  categoryFilter?: keyof typeof groupingMap | '';
+  showAll?: boolean;
 }
 
-const JobList: React.FC<JobListProps> = ({ searchQuery = '', locationFilter = '' }) => {
+const JobList: React.FC<JobListProps> = ({ 
+  searchQuery = '', 
+  locationFilter = '', 
+  categoryFilter = '',
+  showAll = false 
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [loading, setLoading] = useState(true);
@@ -18,52 +27,75 @@ const JobList: React.FC<JobListProps> = ({ searchQuery = '', locationFilter = ''
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [activeFilters, setActiveFilters] = useState({
-    jobTypes: [] as string[],
+    jobTypes: [] as ('Full-time' | 'Part-time' | 'Contract' | 'Remote')[],
     datePosted: '',
-    salaryRange: '',
-    experienceLevel: [] as string[],
+    salaryRange: [] as number[],
+    experienceLevel: [] as ('Executive' | 'Director' | 'Senior level' | 'Mid level' | 'Entry level')[]
   });
 
-  const itemsPerPage = 5;
-  
-  // Simulating data fetching with filters
+  const itemsPerPage = showAll ? Number.MAX_SAFE_INTEGER : 5;
+
   useEffect(() => {
+    async function getAllJobs(){
+      const jobs:Job[] = (await axios.get("http://localhost:8090/api/annonce/all")).data
+      return jobs;
+    }
+
     setLoading(true);
-    
-    // Simulate API call delay
-    const timer = setTimeout(() => {
-      let filteredJobs = [...jobsData];
+    const timer = setTimeout(async () => {
+      const fetchedJobs = await getAllJobs().then(
+        (data)=>{
+          console.log(data)
+          return data
+        }
+      );
+      let filteredJobs = [...fetchedJobs];
       
-      // Apply search query filter
-      if (searchQuery) {
+      // Apply category filter if selected
+      if (categoryFilter) {
+        filteredJobs = filterByCategory({
+          jobList: filteredJobs,
+          filterValue: categoryFilter
+        });
+      }
+      
+      // Only apply search if there is a query
+      if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
-        filteredJobs = filteredJobs.filter(
-          (job) => 
-            job.title.toLowerCase().includes(query) ||
-            job.company.toLowerCase().includes(query) ||
-            job.description.toLowerCase().includes(query)
+        filteredJobs = filteredJobs.filter(job => 
+          job.title.toLowerCase().includes(query) ||
+          job.company.toLowerCase().includes(query) ||
+          job.description.toLowerCase().includes(query)
         );
       }
       
-      // Apply location filter
-      if (locationFilter) {
-        filteredJobs = filteredJobs.filter(
-          (job) => job.location === locationFilter
-        );
+      // Only apply location filter if a location is selected
+      if (locationFilter.trim()) {
+        filteredJobs = filteredJobs.filter(job => job.location === locationFilter);
       }
-      
-      // Apply job type filter
+
+      // Only apply job type filter if types are selected
       if (activeFilters.jobTypes.length > 0) {
-        filteredJobs = filteredJobs.filter(
-          (job) => activeFilters.jobTypes.includes(job.type)
-        );
+        filteredJobs = filterByJobType({
+          jobList: filteredJobs,
+          filterValue: activeFilters.jobTypes
+        });
       }
       
-      // Apply salary range filter
-      if (activeFilters.salaryRange) {
-        // This would normally filter based on salary range
-        // For demo purposes, we'll just log it
-        console.log('Filtering by salary range:', activeFilters.salaryRange);
+      // Only apply salary range filter if both min and max are set
+      if (activeFilters.salaryRange?.length === 2) {
+        filteredJobs = filterBySalaryRange(
+          filteredJobs, 
+          activeFilters.salaryRange[0], 
+          activeFilters.salaryRange[1]
+        );
+      }
+
+      // Only apply experience filter if levels are selected
+      if (activeFilters.experienceLevel.length > 0) {
+        filteredJobs = filteredJobs.filter(job => 
+          activeFilters.experienceLevel.includes(job.level)
+        );
       }
       
       setJobs(filteredJobs);
@@ -71,7 +103,7 @@ const JobList: React.FC<JobListProps> = ({ searchQuery = '', locationFilter = ''
     }, 800);
     
     return () => clearTimeout(timer);
-  }, [searchQuery, locationFilter, activeFilters]);
+  }, [searchQuery, locationFilter, activeFilters, categoryFilter]);
 
   const handleFilterChange = (filters: typeof activeFilters) => {
     setActiveFilters(filters);
@@ -86,7 +118,6 @@ const JobList: React.FC<JobListProps> = ({ searchQuery = '', locationFilter = ''
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
-    // Scroll to top when page changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

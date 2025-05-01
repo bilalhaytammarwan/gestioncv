@@ -12,18 +12,34 @@ import {
 import { TrendingUp } from 'lucide-react';
 import SearchBar from '../components/Layout/SearchBar';
 import JobList from '../components/JobList/JobList';
+import { groupingMap } from '../data/jobsData';
 
 const Home: React.FC = () => {
   const theme = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<keyof typeof groupingMap | ''>('');
+  const [showAllJobs, setShowAllJobs] = useState(false);
 
   const handleSearch = (query: string, location: string) => {
     setSearchQuery(query);
     setLocationFilter(location);
-    
-    // In a real app, you might want to update the URL or fetch data from an API
-    console.log('Searching for:', query, 'in', location);
+    setSelectedCategory(''); // Clear category when searching
+    setShowAllJobs(false); // Reset show all when searching
+  };
+
+  const handleCategoryClick = (category: keyof typeof groupingMap) => {
+    setSelectedCategory(selectedCategory === category ? '' : category);
+    setSearchQuery(''); // Clear search when selecting category
+    setLocationFilter(''); // Clear location when selecting category
+    setShowAllJobs(false); // Reset show all when selecting category
+  };
+
+  const handleViewAllJobs = () => {
+    setShowAllJobs(true);
+    setSelectedCategory('');
+    setSearchQuery('');
+    setLocationFilter('');
   };
 
   const popularSearches = [
@@ -96,107 +112,65 @@ const Home: React.FC = () => {
         </Box>
         
         <Grid container spacing={2} sx={{ mb: 6 }}>
-          <Grid item xs={6} sm={4} md={3}>
-            <Paper
-              variant="outlined"
-              sx={{
-                p: 2,
-                textAlign: 'center',
-                borderRadius: 2,
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                '&:hover': {
-                  boxShadow: 3,
-                  backgroundColor: theme.palette.primary.light,
-                  color: 'white',
-                },
-              }}
-            >
-              <Typography variant="h6">Technology</Typography>
-              <Typography variant="body2" color="text.secondary">
-                1,240 jobs
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={6} sm={4} md={3}>
-            <Paper
-              variant="outlined"
-              sx={{
-                p: 2,
-                textAlign: 'center',
-                borderRadius: 2,
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                '&:hover': {
-                  boxShadow: 3,
-                  backgroundColor: theme.palette.primary.light,
-                  color: 'white',
-                },
-              }}
-            >
-              <Typography variant="h6">Finance</Typography>
-              <Typography variant="body2" color="text.secondary">
-                840 jobs
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={6} sm={4} md={3}>
-            <Paper
-              variant="outlined"
-              sx={{
-                p: 2,
-                textAlign: 'center',
-                borderRadius: 2,
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                '&:hover': {
-                  boxShadow: 3,
-                  backgroundColor: theme.palette.primary.light,
-                  color: 'white',
-                },
-              }}
-            >
-              <Typography variant="h6">Healthcare</Typography>
-              <Typography variant="body2" color="text.secondary">
-                954 jobs
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={6} sm={4} md={3}>
-            <Paper
-              variant="outlined"
-              sx={{
-                p: 2,
-                textAlign: 'center',
-                borderRadius: 2,
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                '&:hover': {
-                  boxShadow: 3,
-                  backgroundColor: theme.palette.primary.light,
-                  color: 'white',
-                },
-              }}
-            >
-              <Typography variant="h6">Marketing</Typography>
-              <Typography variant="body2" color="text.secondary">
-                532 jobs
-              </Typography>
-            </Paper>
-          </Grid>
+          {Object.entries(groupingMap).map(([category, keywords]) => (
+            <Grid item xs={6} sm={4} md={3} key={category}>
+              <Paper
+                variant="outlined"
+                sx={{
+                  p: 2,
+                  textAlign: 'center',
+                  borderRadius: 2,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  backgroundColor: selectedCategory === category 
+                    ? theme.palette.primary.main 
+                    : 'transparent',
+                  color: selectedCategory === category 
+                    ? 'white' 
+                    : 'inherit',
+                  '&:hover': {
+                    boxShadow: 3,
+                    backgroundColor: theme.palette.primary.light,
+                    color: 'white',
+                  },
+                }}
+                onClick={() => handleCategoryClick(category as keyof typeof groupingMap)}
+              >
+                <Typography variant="h6">{category}</Typography>
+                <Typography 
+                  variant="body2" 
+                  color={selectedCategory === category ? 'white' : 'text.secondary'}
+                >
+                  {keywords.length} keywords
+                </Typography>
+              </Paper>
+            </Grid>
+          ))}
         </Grid>
 
         {/* Job Listings Section */}
         <Typography variant="h5" component="h2" sx={{ mb: 3, fontWeight: 600 }}>
-          Featured Jobs
+          {selectedCategory ? `${selectedCategory} Jobs` : 'Featured Jobs'}
         </Typography>
-        <JobList searchQuery={searchQuery} locationFilter={locationFilter} />
+        <JobList 
+          searchQuery={searchQuery} 
+          locationFilter={locationFilter}
+          categoryFilter={selectedCategory}
+          showAll={showAllJobs}
+        />
         
-        <Box sx={{ textAlign: 'center', mt: 4 }}>
-          <Button variant="outlined" color="primary" size="large">
-            View All Jobs
-          </Button>
-        </Box>
+        {!showAllJobs && (
+          <Box sx={{ textAlign: 'center', mt: 4 }}>
+            <Button 
+              variant="outlined" 
+              color="primary" 
+              size="large"
+              onClick={handleViewAllJobs}
+            >
+              View All Jobs
+            </Button>
+          </Box>
+        )}
       </Container>
     </Box>
   );

@@ -1,129 +1,87 @@
-import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Checkbox,
-  FormGroup,
-  FormControlLabel,
-  RadioGroup,
-  Radio,
-  Button,
-  Chip,
-  useMediaQuery,
-  useTheme,
-  Drawer,
-  IconButton
-} from '@mui/material';
-import { ChevronDown, FilterX, X } from 'lucide-react';
-import { jobTypes, salaryRanges } from '../../data/jobsData';
+import React, { FC, useState } from 'react';
+import { Box, Drawer, FormGroup, FormControlLabel, Checkbox, Typography, Slider, IconButton, Button } from '@mui/material';
+import { X } from 'lucide-react';
+import { jobTypes, ExpLevel } from '../../data/jobsData';
 
-interface FiltersProps {
+interface JobFiltersProps {
   onFilterChange: (filters: {
-    jobTypes: string[];
+    jobTypes: ('Full-time' | 'Part-time' | 'Contract' | 'Remote')[];
     datePosted: string;
-    salaryRange: string;
-    experienceLevel: string[];
+    salaryRange: number[];
+    experienceLevel: ('Executive' | 'Director' | 'Senior level' | 'Mid level' | 'Entry level')[];
   }) => void;
   mobileOpen?: boolean;
   onMobileClose?: () => void;
 }
 
-const JobFilters: React.FC<FiltersProps> = ({ 
-  onFilterChange, 
-  mobileOpen = false,
-  onMobileClose = () => {}
-}) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  
-  const [selectedJobTypes, setSelectedJobTypes] = useState<string[]>([]);
-  const [datePosted, setDatePosted] = useState<string>('');
-  const [salaryRange, setSalaryRange] = useState<string>('');
-  const [experienceLevel, setExperienceLevel] = useState<string[]>([]);
-  const [activeFiltersCount, setActiveFiltersCount] = useState(0);
+const JobFilters: FC<JobFiltersProps> = ({ onFilterChange, mobileOpen = false, onMobileClose }) => {
+  const [selectedJobTypes, setSelectedJobTypes] = useState<('Full-time' | 'Part-time' | 'Contract' | 'Remote')[]>([]);
+  const [selectedDatePosted, setSelectedDatePosted] = useState('');
+  const [salaryRange, setSalaryRange] = useState<number[]>([0, 200000]);
+  const [selectedExperienceLevels, setSelectedExperienceLevels] = 
+    useState<('Executive' | 'Director' | 'Senior level' | 'Mid level' | 'Entry level')[]>([]);
 
-  const handleJobTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.name;
-    if (selectedJobTypes.includes(value)) {
-      setSelectedJobTypes(selectedJobTypes.filter((type) => type !== value));
-    } else {
-      setSelectedJobTypes([...selectedJobTypes, value]);
-    }
-  };
-
-  const handleExperienceLevelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.name;
-    if (experienceLevel.includes(value)) {
-      setExperienceLevel(experienceLevel.filter((level) => level !== value));
-    } else {
-      setExperienceLevel([...experienceLevel, value]);
-    }
-  };
-
-  const applyFilters = () => {
-    const filters = {
-      jobTypes: selectedJobTypes,
-      datePosted,
+  const handleJobTypeChange = (type: 'Full-time' | 'Part-time' | 'Contract' | 'Remote') => {
+    const newJobTypes = selectedJobTypes.includes(type) 
+      ? selectedJobTypes.filter(t => t !== type)
+      : [...selectedJobTypes, type];
+    setSelectedJobTypes(newJobTypes);
+    onFilterChange({
+      jobTypes: newJobTypes,
+      datePosted: selectedDatePosted,
       salaryRange,
-      experienceLevel,
-    };
-    
-    const count = 
-      selectedJobTypes.length + 
-      (datePosted ? 1 : 0) + 
-      (salaryRange ? 1 : 0) + 
-      experienceLevel.length;
-    
-    setActiveFiltersCount(count);
-    onFilterChange(filters);
-    
-    if (isMobile && onMobileClose) {
-      onMobileClose();
-    }
+      experienceLevel: selectedExperienceLevels,
+    });
   };
 
-  const clearFilters = () => {
+  const handleExperienceLevelChange = (level: 'Executive' | 'Director' | 'Senior level' | 'Mid level' | 'Entry level') => {
+    const newLevels = selectedExperienceLevels.includes(level)
+      ? selectedExperienceLevels.filter(l => l !== level)
+      : [...selectedExperienceLevels, level];
+    setSelectedExperienceLevels(newLevels);
+    onFilterChange({
+      jobTypes: selectedJobTypes,
+      datePosted: selectedDatePosted,
+      salaryRange,
+      experienceLevel: newLevels,
+    });
+  };
+
+  const handleSalaryRangeChange = (newRange: number[]) => {
+    setSalaryRange(newRange);
+    onFilterChange({
+      jobTypes: selectedJobTypes,
+      datePosted: selectedDatePosted,
+      salaryRange: newRange,
+      experienceLevel: selectedExperienceLevels,
+    });
+  };
+
+  const handleResetFilters = () => {
     setSelectedJobTypes([]);
-    setDatePosted('');
-    setSalaryRange('');
-    setExperienceLevel([]);
-    setActiveFiltersCount(0);
-    
+    setSelectedDatePosted('');
+    setSalaryRange([0, 200000]);
+    setSelectedExperienceLevels([]);
     onFilterChange({
       jobTypes: [],
       datePosted: '',
-      salaryRange: '',
+      salaryRange: [0, 200000],
       experienceLevel: [],
     });
   };
 
-  const filtersContent = (
-    <Box sx={{ p: isMobile ? 3 : 0 }}>
-      {isMobile && (
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-          <Typography variant="h6">Filters</Typography>
-          <IconButton onClick={onMobileClose}>
-            <X size={20} />
-          </IconButton>
-        </Box>
-      )}
-      
+  const filterContent = (
+    <Box sx={{ p: 3, width: 280 }}>
       <Box sx={{ mb: 3 }}>
-        <Typography variant="subtitle1" fontWeight="600" gutterBottom>
-          Job Type
-        </Typography>
+        <Typography variant="h6" gutterBottom>Job Type</Typography>
         <FormGroup>
           {jobTypes.map((type) => (
             <FormControlLabel
               key={type}
               control={
-                <Checkbox
-                  checked={selectedJobTypes.includes(type)}
-                  name={type}
-                  onChange={handleJobTypeChange}
+                <Checkbox 
+                  checked={selectedJobTypes.includes(type as 'Full-time' | 'Part-time' | 'Contract' | 'Remote')}
+                  onChange={() => handleJobTypeChange(type as 'Full-time' | 'Part-time' | 'Contract' | 'Remote')}
                 />
               }
               label={type}
@@ -133,166 +91,93 @@ const JobFilters: React.FC<FiltersProps> = ({
       </Box>
 
       <Box sx={{ mb: 3 }}>
-        <Typography variant="subtitle1" fontWeight="600" gutterBottom>
-          Date Posted
-        </Typography>
-        <RadioGroup
-          value={datePosted}
-          onChange={(e) => setDatePosted(e.target.value)}
-        >
-          <FormControlLabel value="past24Hours" control={<Radio />} label="Past 24 hours" />
-          <FormControlLabel value="past3Days" control={<Radio />} label="Past 3 days" />
-          <FormControlLabel value="pastWeek" control={<Radio />} label="Past week" />
-          <FormControlLabel value="pastMonth" control={<Radio />} label="Past month" />
-          <FormControlLabel value="anytime" control={<Radio />} label="Anytime" />
-        </RadioGroup>
-      </Box>
-
-      <Box sx={{ mb: 3 }}>
-        <Typography variant="subtitle1" fontWeight="600" gutterBottom>
-          Salary Range
-        </Typography>
-        <RadioGroup
-          value={salaryRange}
-          onChange={(e) => setSalaryRange(e.target.value)}
-        >
-          {salaryRanges.map((range) => (
-            <FormControlLabel key={range} value={range} control={<Radio />} label={range} />
-          ))}
-        </RadioGroup>
-      </Box>
-
-      <Box sx={{ mb: 3 }}>
-        <Typography variant="subtitle1" fontWeight="600" gutterBottom>
-          Experience Level
-        </Typography>
+        <Typography variant="h6" gutterBottom>Experience Level</Typography>
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={experienceLevel.includes('Entry level')}
-                name="Entry level"
-                onChange={handleExperienceLevelChange}
-              />
-            }
-            label="Entry level"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={experienceLevel.includes('Mid level')}
-                name="Mid level"
-                onChange={handleExperienceLevelChange}
-              />
-            }
-            label="Mid level"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={experienceLevel.includes('Senior level')}
-                name="Senior level"
-                onChange={handleExperienceLevelChange}
-              />
-            }
-            label="Senior level"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={experienceLevel.includes('Director')}
-                name="Director"
-                onChange={handleExperienceLevelChange}
-              />
-            }
-            label="Director"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={experienceLevel.includes('Executive')}
-                name="Executive"
-                onChange={handleExperienceLevelChange}
-              />
-            }
-            label="Executive"
-          />
+          {ExpLevel.map((level) => (
+            <FormControlLabel
+              key={level}
+              control={
+                <Checkbox 
+                  checked={selectedExperienceLevels.includes(level as 'Executive' | 'Director' | 'Senior level' | 'Mid level' | 'Entry level')}
+                  onChange={() => handleExperienceLevelChange(level as 'Executive' | 'Director' | 'Senior level' | 'Mid level' | 'Entry level')}
+                />
+              }
+              label={level}
+            />
+          ))}
         </FormGroup>
       </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
-        <Button
-          variant="outlined"
-          color="primary"
-          startIcon={<FilterX size={18} />}
-          onClick={clearFilters}
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h6" gutterBottom>Salary Range</Typography>
+        <Box sx={{ px: 1 }}>
+          <Slider
+            value={salaryRange}
+            onChange={(_, newValue) => handleSalaryRangeChange(newValue as number[])}
+            valueLabelDisplay="auto"
+            min={0}
+            max={200000}
+            step={10000}
+            valueLabelFormat={(value) => `$${value.toLocaleString()}`}
+          />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
+            <Typography variant="body2" color="text.secondary">
+              ${salaryRange[0].toLocaleString()}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              ${salaryRange[1].toLocaleString()}
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* Reset Button */}
+      <Box sx={{ mt: 4 }}>
+        <Button 
+          variant="outlined" 
+          color="secondary" 
+          fullWidth 
+          onClick={handleResetFilters}
         >
-          Clear Filters
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={applyFilters}
-        >
-          Apply Filters
+          Reset Filters
         </Button>
       </Box>
     </Box>
   );
 
-  // For mobile view with drawer
-  if (isMobile) {
-    return (
-      <>
-        <Box sx={{ display: 'flex', mb: 2, flexWrap: 'wrap', gap: 1 }}>
-          <Chip
-            label={`Filters (${activeFiltersCount})`}
-            color={activeFiltersCount > 0 ? "primary" : "default"}
-            onClick={onMobileClose}
-            variant={activeFiltersCount > 0 ? "filled" : "outlined"}
-          />
-          {selectedJobTypes.map((type) => (
-            <Chip key={type} label={type} onDelete={() => {
-              setSelectedJobTypes(selectedJobTypes.filter(t => t !== type));
-              applyFilters();
-            }} />
-          ))}
-          {datePosted && (
-            <Chip 
-              label={`Posted: ${datePosted.replace(/past|Past/, '')}`} 
-              onDelete={() => {
-                setDatePosted('');
-                applyFilters();
-              }} 
-            />
-          )}
-        </Box>
-        
-        <Drawer
-          anchor="right"
-          open={mobileOpen}
-          onClose={onMobileClose}
-          PaperProps={{
-            sx: {
-              width: '85%',
-              maxWidth: '360px',
-            }
+  return (
+    <>
+      {/* Desktop view */}
+      {!mobileOpen && (
+        <Box
+          sx={{
+            width: 280,
+            flexShrink: 0,
+            display: { xs: 'none', md: 'block' }
           }}
         >
-          {filtersContent}
-        </Drawer>
-      </>
-    );
-  }
+          {filterContent}
+        </Box>
+      )}
 
-  // For desktop view
-  return (
-    <Box sx={{ minWidth: 280, maxWidth: 300 }}>
-      <Typography variant="h6" sx={{ mb: 2 }}>
-        Filters
-      </Typography>
-      {filtersContent}
-    </Box>
+      {/* Mobile view */}
+      <Drawer
+        anchor="right"
+        open={mobileOpen}
+        onClose={onMobileClose}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': { width: 280 },
+        }}
+      >
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 1 }}>
+          <IconButton onClick={onMobileClose}>
+            <X size={24} />
+          </IconButton>
+        </Box>
+        {filterContent}
+      </Drawer>
+    </>
   );
 };
 

@@ -19,6 +19,11 @@ interface JobCardProps {
   onSaveToggle: (id: string) => void;
 }
 
+const formatSalary = (salary: number[]): string => {
+  const [min, max] = (salary!)? salary: [0,0] ;
+  return `$${(min/1000).toFixed(0)}k - $${(max === Number.MAX_SAFE_INTEGER ? '200+' : (max/1000).toFixed(0)+'k')}`;
+};
+
 const JobCard: React.FC<JobCardProps> = ({ job, onSaveToggle }) => {
   const theme = useTheme();
   const [isHovered, setIsHovered] = useState(false);
@@ -72,7 +77,7 @@ const JobCard: React.FC<JobCardProps> = ({ job, onSaveToggle }) => {
               <Box component="span" sx={{ minWidth: 90 }}>Location:</Box> {job.location}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
-              <Box component="span" sx={{ minWidth: 90 }}>Salary:</Box> {job.salary}
+              <Box component="span" sx={{ minWidth: 90 }}>Salary:</Box> {formatSalary(job.salary)}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center' }}>
               <Box component="span" sx={{ minWidth: 90 }}>Posted:</Box> {job.posted}
