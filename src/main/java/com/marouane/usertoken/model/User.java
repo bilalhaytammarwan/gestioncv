@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @TypeAlias("user")
@@ -59,7 +59,7 @@ public abstract class User {
     @Size(max = 255, message = "Description must not exceed 255 characters")
     private String description;
 
-    @NotNull(message = "Utilisation Duration must not be null")
+
     @PastOrPresent(message = "Usage date cannot be in the future")
     private Date dureeUtilisation;
 
@@ -72,5 +72,83 @@ public abstract class User {
 
     private List<Annonce> notification;
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDureeUtilisation() {
+        return dureeUtilisation;
+    }
+
+    public void setDureeUtilisation(Date dureeUtilisation) {
+        this.dureeUtilisation = dureeUtilisation;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public List<Annonce> getNotification() {
+        return notification;
+    }
+
+    public void setNotification(List<Annonce> notification) {
+        this.notification = notification;
+    }
 }

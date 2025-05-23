@@ -1,6 +1,8 @@
 package com.marouane.usertoken.controller;
 
 
+import com.marouane.usertoken.dto.*;
+import com.marouane.usertoken.model.Admin;
 import com.marouane.usertoken.model.Annonce;
 
 import com.marouane.usertoken.model.Role;
@@ -16,22 +18,48 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
-@RequiredArgsConstructor
+
+@CrossOrigin(origins = "http://localhost:5173/")
 public class UserController {
 
     private final UserService userService;
 
-//    @PreAuthorize("hasRole('ADMIN')")
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    //    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<User>> getUsers(){
         List<User> users = userService.getUsers();
         return ResponseEntity.ok(users);
+    }
+    @PostMapping("/addadmin")
+    public void postadmin(@RequestBody Admin admin){
+        userService.addsubadmin(admin);
     }
 //    @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id")
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable String id){
         User user = userService.getUserById(id);
         return ResponseEntity.ok(user);
+    }
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Userwithimagedto> getUserByIdwithphotoandfile(@PathVariable String id){
+        Userwithimagedto user=userService.getUserbyidwithphotoandfile(id);
+        return ResponseEntity.ok(user);
+    }
+    @GetMapping("/admin/{id}")
+    public Admin getAdminById(@PathVariable String id){
+        Admin admin=userService.getAdminById(id);
+        return admin;
+    }
+    @GetMapping("/admins/pagination")
+    public AdminpaginationDto getAllAdmins(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "10") int size,
+                                    @RequestParam(required = false)String search){
+        AdminpaginationDto admins=userService.getUsersByRoleadmin(page,size,search);
+        return admins;
     }
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody User userInfo){
@@ -41,7 +69,8 @@ public class UserController {
     }
 //    @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id")
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable String id, @Valid @RequestBody User userInfo){
+    public ResponseEntity<User> updateUser(@PathVariable String id, @Valid @RequestBody Userrequestchangedto userInfo){
+       
         User user = userService.updateUser(id, userInfo);
         return ResponseEntity.ok(user);
     }
@@ -72,5 +101,25 @@ public class UserController {
         public void updateUserNotification(@RequestPart("annonce") Annonce annonce, @Valid @RequestPart("user") User userInfo){
         userService.addtolistnotification(annonce, userInfo);
     }
+    @GetMapping("/pagination")
+    public UserPaginationDto getUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false)String search) {
+      return   userService.getUserpagination(page, size,search);
+    }
+    @GetMapping("/pagination/company")
+    public Companypaginationdto getCompany(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false)String search) {
+        return   userService.getCompanypagination(page, size,search);
+    }
+    @GetMapping("/role/company/ids")
+    public ResponseEntity<List<String>> getAllCompanyUserIds() {
+        List<String> ids = userService.getUserIdsByRole(Role.COMPANY);
+        return ResponseEntity.ok(ids);
+    }
+
 
 }
