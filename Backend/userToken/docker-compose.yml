@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27011:27017"
+    volumes:
+      - mongo-data-user-token:/data/db
+
+  user-token-app:
+    image: marouane0710/user-token-app:v2
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+    depends_on:
+      - mongo
+    ports:
+      - "8228:8228"
+
+volumes:
+  mongo-data-user-token:
+    driver: local
