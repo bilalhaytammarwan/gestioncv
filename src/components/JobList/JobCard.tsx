@@ -1,0 +1,137 @@
+import React, { useState } from 'react';
+import { 
+  Card, 
+  CardContent, 
+  Typography, 
+  Box, 
+  Chip, 
+  IconButton,
+  CardActionArea,
+  Avatar,
+  useTheme
+} from '@mui/material';
+import { BookmarkPlus, BookmarkCheck, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { SubJob } from '../../data/jobsData';
+
+interface JobCardProps {
+  job: SubJob;
+  onSaveToggle: (id: string) => void;
+}
+
+const JobCard: React.FC<JobCardProps> = ({ job, onSaveToggle }) => {
+  const theme = useTheme();
+  const [isHovered, setIsHovered] = useState(false);
+  const capitalizeWords = (str: string): string =>
+    str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+  return (
+    <Card 
+      variant="outlined"
+      sx={{ 
+        mb: 2,
+        position: 'relative',
+        transition: 'all 0.2s ease-in-out',
+        border: isHovered 
+          ? `1px solid ${theme.palette.primary.main}` 
+          : '1px solid rgba(0, 0, 0, 0.12)',
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <CardActionArea 
+        component={Link} 
+        to={`/job/${job.id}`}
+        sx={{ display: 'block', textDecoration: 'none' }}
+      >
+        <CardContent sx={{ pb: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Avatar
+                src={job.logo}
+                alt={job.companyName}
+                variant="rounded"
+                sx={{ 
+                  width: 50, 
+                  height: 50, 
+                  mr: 2,
+                  bgcolor: theme.palette.grey[200]
+                }}
+              />
+              <Box>
+                <Typography variant="h6" component="h2" sx={{ fontWeight: 600, mb: 0.5 }}>
+                  {job.title}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" gutterBottom>
+                  {job.companyName}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          
+          <Box sx={{ mb: 1.5 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
+              <Box component="span" sx={{ minWidth: 90 }}>Location: {`${job.jobLocation.city}, ${job.jobLocation.country}`}</Box>
+            </Typography>
+
+            <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', mb: 0.5 }}>
+              <Box component="span" sx={{ minWidth: 90 }}>Salary: {`${job.salary.min} - ${job.salary.max} ${job.salary.currency} / ${capitalizeWords(job.salary.unit.toLowerCase())}`}</Box>
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box component="span" sx={{ minWidth: 90 }}>Posted: {job.posted}</Box>
+            </Typography>
+          </Box>
+          
+          <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 1, mt: 2 }}>
+            <Chip 
+              label={job.jobType} 
+              size="small"
+              color="primary"
+              variant="outlined"
+            />
+            {job.remote && (
+              <Chip 
+                label="Remote" 
+                size="small" 
+                color="primary"
+                variant="outlined"
+              />
+            )}
+            {job.isNew && (
+              <Chip 
+                label="New" 
+                size="small" 
+                sx={{ 
+                  bgcolor: theme.palette.success.light,
+                  color: theme.palette.success.contrastText
+                }}
+              />
+            )}
+            <Box sx={{ ml: 'auto', opacity: isHovered ? 1 : 0.7, transition: 'opacity 0.2s' }}>
+              <ExternalLink size={16} />
+            </Box>
+          </Box>
+        </CardContent>
+      </CardActionArea>
+      
+      <IconButton
+        aria-label={job.isSaved ? "Remove from saved jobs" : "Save job"}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          onSaveToggle(job.id);
+        }}
+        sx={{
+          position: 'absolute',
+          top: 12,
+          right: 12,
+          zIndex: 2,
+          color: job.isSaved ? theme.palette.primary.main : 'rgba(0, 0, 0, 0.54)',
+        }}
+      >
+        {job.isSaved ? <BookmarkCheck size={20} /> : <BookmarkPlus size={20} />}
+      </IconButton>
+    </Card>
+  );
+};
+
+export default JobCard;
