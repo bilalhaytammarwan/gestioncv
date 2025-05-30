@@ -1,0 +1,13 @@
+services:
+  opportunity-service-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8338:8338"
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    external: true

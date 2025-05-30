@@ -1,0 +1,31 @@
+#version: '3.8'
+
+services:
+#  mongo:
+#    image: mongo:latest
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: admin
+#      MONGO_INITDB_ROOT_PASSWORD: admin
+#    ports:
+#      - "27013:27017"
+#    volumes:
+#      - mongo-data-sendEmail-service:/data/db
+
+  send-email-service-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+#    depends_on:
+#      - mongo
+    ports:
+      - "8668:8668"
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    external: true
+
+#volumes:
+#  mongo-data-sendEmail-service:
+#    driver: local

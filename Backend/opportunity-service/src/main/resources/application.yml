@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: opportunity-service
+  data:
+    mongodb:
+#      host: mongo
+#      port: 27017
+#      database: opportunity_service_DB
+#      username: admin
+#      password: admin
+#      authentication-database: admin
+      auto-index-creation: true
+      database: opportunity-service
+      uri: mongodb+srv://root:HOrtoY4iingtohvV@cluster0.9tpnxx1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://service-registry-app:8761/eureka
+server:
+  port: 8338
