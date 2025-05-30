@@ -1,0 +1,14 @@
+
+services:
+
+  service-registry-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices-net
+networks:
+  microservices-net:
+    external: true
