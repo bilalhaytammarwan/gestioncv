@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin("http://localhost:5173/")
 @RestController
 @RequestMapping("/api/opportunity")
 @RequiredArgsConstructor
@@ -30,10 +31,16 @@ public class OpportunityController {
         return ResponseEntity.ok(opportunities);
     }
 //    @PreAuthorize("hasAnyRole('CANDIDATE', 'COMPANY', 'ADMIN')")
-    @GetMapping("/{id}")
-    public ResponseEntity<Opportunity> getOpportunityById(@PathVariable String id){
+    @GetMapping("pure/{id}")
+    public ResponseEntity<Opportunity> getPureOpportunityById(@PathVariable String id){
         Opportunity opportunity = opportunityService.getOpportunityById(id);
         return ResponseEntity.ok(opportunity);
+    }
+    //    @PreAuthorize("hasAnyRole('CANDIDATE', 'COMPANY', 'ADMIN')")
+    @GetMapping("/{id}")
+    public ResponseEntity<OpportunitySearchResult> getOpportunityById(@PathVariable String id){
+        OpportunitySearchResult opportunitySearchResult = opportunityService.getOpportunityById(id);
+        return ResponseEntity.ok(opportunitySearchResult);
     }
 //    @PreAuthorize("hasAnyRole('COMPANY', 'ADMIN')")
     @GetMapping("/{id}/candidate")

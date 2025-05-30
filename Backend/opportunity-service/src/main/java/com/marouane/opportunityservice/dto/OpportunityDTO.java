@@ -19,8 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 public class OpportunityDTO {
 
-    @NotBlank(message = "Company is required")
-    @NotNull(message = "Company must not be null")
+    @NotBlank(message = "CompanyWrapper is required")
+    @NotNull(message = "CompanyWrapper must not be null")
     private String companyId;
 
     @NotNull(message = "Title must not be null")

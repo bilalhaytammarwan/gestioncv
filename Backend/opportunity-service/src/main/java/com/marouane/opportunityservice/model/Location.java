@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-//@ValidLocation
+@ValidLocation
 public class Location {
 
     @NotBlank(message = "Job city is required")
