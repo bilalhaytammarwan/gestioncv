@@ -69,8 +69,7 @@ public abstract class User {
     @NotNull(message = "Ville must not be null")
     @NotBlank(message = "City is required")
     private String ville;
-    private List<String> notification;
-    
+
 
 
 }
