@@ -2,10 +2,8 @@ package com.marouane.opportunityservice.controller;
 
 import com.marouane.opportunityservice.dto.OpportunityDTO;
 import com.marouane.opportunityservice.dto.OpportunitySearchResult;
-import com.marouane.opportunityservice.dto.SearchDto;
 import com.marouane.opportunityservice.mapper.OpportunityMapper;
 import com.marouane.opportunityservice.model.Opportunity;
-import com.marouane.opportunityservice.model.Salary;
 import com.marouane.opportunityservice.service.OpportunityService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin("http://localhost:5173/")
 @RestController
 @RequestMapping("/api/opportunity")
 @RequiredArgsConstructor
@@ -30,9 +29,9 @@ public class OpportunityController {
     }
 //    @PreAuthorize("hasAnyRole('CANDIDATE', 'COMPANY', 'ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<Opportunity> getOpportunityById(@PathVariable String id){
-        Opportunity opportunity = opportunityService.getOpportunityById(id);
-        return ResponseEntity.ok(opportunity);
+    public ResponseEntity<OpportunitySearchResult> getOpportunityById(@PathVariable String id){
+        OpportunitySearchResult opportunitySearchResult = opportunityService.getOpportunityById(id);
+        return ResponseEntity.ok(opportunitySearchResult);
     }
 
 //    @PreAuthorize("hasAnyRole('COMPANY', 'ADMIN')")

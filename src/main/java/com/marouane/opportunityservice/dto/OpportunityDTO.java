@@ -19,8 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 public class OpportunityDTO {
 
-    @NotBlank(message = "Company is required")
-    @NotNull(message = "Company must not be null")
+    @NotBlank(message = "CompanyWrapper is required")
+    @NotNull(message = "CompanyWrapper must not be null")
     private String companyId;
 
     @NotNull(message = "Title must not be null")
@@ -76,8 +76,8 @@ public class OpportunityDTO {
     @Valid
     private List<@NotBlank(message = "Benefit cannot be blank") String> benefits;
 
-    @NotNull(message = "Years of experience cannot be null")
-    @Min(value = 0, message = "Years of experience cannot be negative.")
-    @Max(value = 50, message = "Years of experience cannot exceed 50.")
-    private int yearsOfExperience;
+//    @NotNull(message = "Years of experience cannot be null")
+//    @Min(value = 0, message = "Years of experience cannot be negative.")
+//    @Max(value = 50, message = "Years of experience cannot exceed 50.")
+//    private int yearsOfExperience;
 }

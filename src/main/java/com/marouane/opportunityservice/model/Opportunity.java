@@ -64,11 +64,12 @@ public class Opportunity {
 
     private List<String> benefits;
 
-    private int yearsOfExperience;
+//    private int yearsOfExperience;
 
     private List<String> tags; // Using AI/NLP Tag Extraction (Auto-tagging)
 
 //    private List<String> searchSuggestions;
 
     private String url;
+
 }
