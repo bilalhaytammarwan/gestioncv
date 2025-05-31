@@ -13,6 +13,7 @@ import com.marouane.usertoken.repository.AdminRepository;
 import com.marouane.usertoken.repository.CandidateRepository;
 import com.marouane.usertoken.repository.CompanyRepository;
 import com.marouane.usertoken.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.Page;
@@ -33,6 +34,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private MongoTemplate mongoTemplate;
@@ -42,19 +44,6 @@ public class UserService {
     private final CandidateRepository candidateRepository;
     private final CompanyRepository companyRepository;
 //    private final BCryptPasswordEncoder encoder;
-
-    public UserService(UserRepository userRepository, MongoTemplate mongoTemplate,Attachementservice attachementservice,
-                       AdminRepository adminRepository,CandidateRepository candidateRepository,
-                       CompanyRepository companyRepository) {
-        this.userRepository = userRepository;
-        this.mongoTemplate = mongoTemplate;
-        this.attachementservice = attachementservice;
-        this.adminRepository = adminRepository;
-        this.candidateRepository = candidateRepository;
-        this.companyRepository = companyRepository;
-
-
-    }
 //    private final BCryptPasswordEncoder encoder;
 
 

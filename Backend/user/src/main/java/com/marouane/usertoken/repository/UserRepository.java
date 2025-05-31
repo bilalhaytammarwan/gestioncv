@@ -16,13 +16,13 @@ public interface UserRepository extends MongoRepository<User, String> {
     List<User> findAllByRole(Role role);
     Optional<User> findByEmail(String email);
 
-    Page<User> findAllByRole(String candidate, Pageable pageable);
+//    Page<User> findAllByRole(String candidate, Pageable pageable);
 
     List<User> findByRole(Role role);
 
-    Page<User> findByNomContainingOrEmailContaining(String search, String search1, Pageable pageable);
-
-    Page<User> findByNomContainingIgnoreCaseOrEmailContainingIgnoreCaseAndRole(String nom, String email, String role, Pageable pageable);
-
-    Page<User> findByRoleAndNomContainingIgnoreCaseOrRoleAndEmailContainingIgnoreCase(String company, String search, String company1, String search1, Pageable pageable);
+//    Page<User> findByNomContainingOrEmailContaining(String search, String search1, Pageable pageable);
+//
+//    Page<User> findByNomContainingIgnoreCaseOrEmailContainingIgnoreCaseAndRole(String nom, String email, String role, Pageable pageable);
+//
+//    Page<User> findByRoleAndNomContainingIgnoreCaseOrRoleAndEmailContainingIgnoreCase(String company, String search, String company1, String search1, Pageable pageable);
 }

@@ -2,14 +2,17 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
         <module name="Opportunity-service" />
+        <module name="sendEmail-service" />
+        <module name="search-service" />
         <module name="discovory" />
-        <module name="User-Token" />
+        <module name="user" />
         <module name="gateway" />
       </profile>
       <profile name="Annotation profile for attachement-module" enabled="true">
@@ -26,11 +29,13 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Opportunity-service" options="-parameters" />
-      <module name="User-Token" options="-parameters" />
       <module name="attachement" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="discovory" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="search-service" options="-parameters" />
+      <module name="sendEmail-service" options="-parameters" />
+      <module name="user" options="-parameters" />
     </option>
   </component>
 </project>
