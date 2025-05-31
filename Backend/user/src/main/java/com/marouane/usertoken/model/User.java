@@ -59,7 +59,7 @@ public abstract class User {
     @Size(max = 255, message = "Description must not exceed 255 characters")
     private String description;
 
-    @NotNull(message = "Utilisation Duration must not be null")
+
     @PastOrPresent(message = "Usage date cannot be in the future")
     private Date dureeUtilisation;
 

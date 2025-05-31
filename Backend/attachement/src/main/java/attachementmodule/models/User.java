@@ -1,6 +1,6 @@
 package attachementmodule.models;
 
-import com.gestioncv.annonce.entity.Typerole;
+
 import lombok.Data;
 
 import java.util.List;
