@@ -7,13 +7,13 @@ import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class LocationValidator  {
-//
-//    private final LocationValidationService locationValidationService;
-//
-//    @Override
-//    public boolean isValid(Location location, ConstraintValidatorContext context) {
-//        if (location == null) return false;
-//        return locationValidationService.validateLocation(location);
-//    }
+public class LocationValidator implements ConstraintValidator<ValidLocation, Location> {
+
+    private final LocationValidationService locationValidationService;
+
+    @Override
+    public boolean isValid(Location location, ConstraintValidatorContext context) {
+        if (location == null) return false;
+        return locationValidationService.validateLocation(location);
+    }
 }

@@ -71,4 +71,5 @@ public class Opportunity {
 //    private List<String> searchSuggestions;
 
     private String url;
+    private List<String> candidatesIds;
 }

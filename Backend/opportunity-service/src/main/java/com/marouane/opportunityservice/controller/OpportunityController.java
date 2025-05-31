@@ -1,8 +1,13 @@
 package com.marouane.opportunityservice.controller;
 
 import com.marouane.opportunityservice.dto.*;
+import com.marouane.opportunityservice.dto.OpportunityDTO;
+import com.marouane.opportunityservice.dto.OpportunitySearchResult;
+import com.marouane.opportunityservice.dto.SearchDto;
 import com.marouane.opportunityservice.mapper.OpportunityMapper;
+import com.marouane.opportunityservice.model.Candidate;
 import com.marouane.opportunityservice.model.Opportunity;
+import com.marouane.opportunityservice.model.Salary;
 import com.marouane.opportunityservice.service.OpportunityService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +19,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173/")
-@RequestMapping("api/opportunity")
+@RequestMapping("/api/opportunity")
 @RequiredArgsConstructor
 public class OpportunityController {
     private final OpportunityService opportunityService;
@@ -35,10 +40,22 @@ public class OpportunityController {
         return opportunityService.getPaginatedOpportunitiesByCompanies(page,size,search);
     }
 //    @PreAuthorize("hasAnyRole('CANDIDATE', 'COMPANY', 'ADMIN')")
-    @GetMapping("/{id}")
-    public ResponseEntity<Opportunity> getOpportunityById(@PathVariable String id){
+    @GetMapping("pure/{id}")
+    public ResponseEntity<Opportunity> getPureOpportunityById(@PathVariable String id){
         Opportunity opportunity = opportunityService.getOpportunityById(id);
         return ResponseEntity.ok(opportunity);
+    }
+    //    @PreAuthorize("hasAnyRole('CANDIDATE', 'COMPANY', 'ADMIN')")
+    @GetMapping("/{id}")
+    public ResponseEntity<OpportunitySearchResult> getOpportunityById(@PathVariable String id){
+        OpportunitySearchResult opportunitySearchResult = opportunityService.getOpportunityById(id);
+        return ResponseEntity.ok(opportunitySearchResult);
+    }
+//    @PreAuthorize("hasAnyRole('COMPANY', 'ADMIN')")
+    @GetMapping("/{id}/candidate")
+    public ResponseEntity<List<Candidate>> getAllCandidatesOfOpportunity(@PathVariable String id){
+
+        return ResponseEntity.ok(opportunityService.getOpportunityCandidates(id));
     }
 
 //    @PreAuthorize("hasAnyRole('COMPANY', 'ADMIN')")
@@ -53,6 +70,16 @@ public class OpportunityController {
 public OpportunityDTOresponse getOpportunityByCompanyId(@PathVariable String id){
 return opportunityService.getop(id);
 }
+
+    @PostMapping("/{opportunityId}")
+    public ResponseEntity subscribeToOpportunity(@PathVariable String opportunityId,@RequestParam String candidateId) {
+        if(opportunityService.subscribeToOpportunity(opportunityId, candidateId)){
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 //    @PreAuthorize("hasAnyRole('COMPANY', 'ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Opportunity> updateOpportunity(@PathVariable String id, @Valid @RequestBody OpportunityDTO opportunityDtoInfo){
