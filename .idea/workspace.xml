@@ -5,30 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9126e5a-69fc-4464-bf3c-06637b257bf3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/merge-all-final.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/merge-final.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/attachementmodule/models/Attachement.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/attachement/target/classes/attachementmodule/models/Attachement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/attachementmodule/models/Cv.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/attachement/target/classes/attachementmodule/models/Cv.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/attachementmodule/models/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/attachement/target/classes/attachementmodule/models/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/opportunity-service/src/main/java/com/marouane/opportunityservice/service/OpportunityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/opportunity-service/src/main/java/com/marouane/opportunityservice/service/OpportunityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/seach/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/seach/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/seach/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/seach/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/sendEmail-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/sendEmail-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/sendEmail-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/sendEmail-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/controller/ACompanyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/controller/CompanyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/controller/CandidateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/controller/ACandidateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/dto/Admindto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/dto/Admindto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/dto/Companywithimagedto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/dto/Companywithimagedto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +166,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1748705697039</updated>
-      <workItem from="1748705698835" duration="14501000" />
+      <workItem from="1748705698835" duration="15610000" />
     </task>
     <servers />
   </component>
