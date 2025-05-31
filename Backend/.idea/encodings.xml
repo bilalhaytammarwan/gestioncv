@@ -7,7 +7,11 @@
     <file url="file://$PROJECT_DIR$/config-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/discovory/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/opportunity-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/opportunity/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/seach/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sendEmail-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/userToken/src/main/java" charset="UTF-8" />
   </component>
 </project>

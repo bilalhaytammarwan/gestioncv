@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
-@RequestMapping("api/user")
+
 
 @CrossOrigin(origins = "http://localhost:5173/")
 public class UserController {
@@ -29,10 +29,7 @@ public class UserController {
     private final UserService userService;
     private final Attachementservice attachementservice;
 
-    public UserController(UserService userService, Attachementservice attachementservice) {
-        this.userService = userService;
-        this.attachementservice = attachementservice;
-    }
+
 
 //    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
@@ -131,6 +128,7 @@ public class UserController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false)String search) {
         return   userService.getCompanypagination(page, size,search);
+    }
     @GetMapping("/role/company/ids")
     public ResponseEntity<List<String>> getAllCompanyUserIds() {
         List<String> ids = userService.getUserIdsByRole(Role.COMPANY);

@@ -42,7 +42,7 @@ public class OpportunityController {
 //    @PreAuthorize("hasAnyRole('CANDIDATE', 'COMPANY', 'ADMIN')")
     @GetMapping("pure/{id}")
     public ResponseEntity<Opportunity> getPureOpportunityById(@PathVariable String id){
-        Opportunity opportunity = opportunityService.getOpportunityById(id);
+        Opportunity opportunity = opportunityService.getPureOpportunityById(id);
         return ResponseEntity.ok(opportunity);
     }
     //    @PreAuthorize("hasAnyRole('CANDIDATE', 'COMPANY', 'ADMIN')")

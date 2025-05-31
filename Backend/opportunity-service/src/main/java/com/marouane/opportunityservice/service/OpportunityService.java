@@ -1,14 +1,13 @@
 package com.marouane.opportunityservice.service;
 
-import com.marouane.opportunityservice.dto.OpportunityDTO;
 import com.marouane.opportunityservice.dto.OpportunityDTOpagination;
 import com.marouane.opportunityservice.dto.OpportunityDTOresponse;
-import com.marouane.opportunityservice.client.CandidateClient;
+import com.marouane.opportunityservice.feign.CandidateClient;
 import com.marouane.opportunityservice.dto.OpportunitySearchResult;
 import com.marouane.opportunityservice.exception.PathVarException;
 import com.marouane.opportunityservice.exception.opportunity.*;
 import com.marouane.opportunityservice.model.Candidate;
-import com.marouane.opportunityservice.feign.UserTokenInterface;
+
 import com.marouane.opportunityservice.mapper.OpportunityMapper;
 import com.marouane.opportunityservice.model.Opportunity;
 import com.marouane.opportunityservice.repo.OpportunityRepo;
@@ -34,9 +33,9 @@ public class OpportunityService {
 
     private final OpportunityRepo opportunityRepo;
     private final OpportunityMapper opportunityMapper;
-    private final UserService userService;
+
     private final CategoryService categoryService;
-    private final UserTokenInterface userTokenInterface;
+
 
     private final CandidateClient candidateClient;
     public List<Opportunity> getOpportunities() {
@@ -61,7 +60,7 @@ public class OpportunityService {
                 .getContent()
                 .stream()
                 .map(e->{
-                    String name=userService.getUserById(e.getCompanyId()).getBody().getNom();
+                    String name=candidateClient.getUserById(e.getCompanyId()).getBody().getNom();
                     String categoryname=categoryService.getCategoryById(e.getCategoryId()).getName();
                     OpportunityDTOresponse dto = new OpportunityDTOresponse(
                             e.getId(),
@@ -108,8 +107,8 @@ public class OpportunityService {
         Opportunity opportunity = opportunityRepo.findById(id)
                 .orElseThrow(() -> new OpportunityGetException(HttpStatus.NOT_FOUND, "Opportunity not found"));
         OpportunitySearchResult opportunitySearchResult = opportunityMapper.toDtoRes(opportunity);
-        log.info("Company name created with ID: {}", Objects.requireNonNull(userTokenInterface.getUserById(opportunity.getCompanyId()).getBody()).getNom());
-        opportunitySearchResult.setCompanyName(Objects.requireNonNull(userTokenInterface.getUserById(opportunitySearchResult.getCompanyId()).getBody()).getNom());
+        log.info("Company name created with ID: {}", Objects.requireNonNull(candidateClient.getUserById(opportunity.getCompanyId()).getBody()).getNom());
+        opportunitySearchResult.setCompanyName(Objects.requireNonNull(candidateClient.getUserById(opportunitySearchResult.getCompanyId()).getBody()).getNom());
         opportunitySearchResult.setCategoryName(categoryService.getCategoryById(opportunity.getCategoryId()).getName());
         return opportunitySearchResult;
     }
@@ -118,7 +117,7 @@ public class OpportunityService {
             throw new PathVarException(HttpStatus.BAD_REQUEST, "Opportunity ID cannot be empty");
         }
         Opportunity e= getPureOpportunityById(id);
-        String name = userService.getUserById(e.getCompanyId()).getBody().getNom();
+        String name = candidateClient.getUserById(e.getCompanyId()).getBody().getNom();
         String categoryName = categoryService.getCategoryById(e.getCategoryId()).getName();
         OpportunityDTOresponse dto = new OpportunityDTOresponse(
                 e.getId(),
@@ -192,7 +191,7 @@ public class OpportunityService {
     }
 
     public List<Candidate> getOpportunityCandidates(String opportunityId){
-        Opportunity opportunity = getOpportunityById(opportunityId);
+        Opportunity opportunity = getPureOpportunityById(opportunityId);
         if (opportunity == null) {
             throw new OpportunityGetException(HttpStatus.NOT_FOUND, "Opportunity not found");
         }
@@ -214,7 +213,7 @@ public class OpportunityService {
         if(opportunityId == null || candidateId == null) {
             throw new PathVarException(HttpStatus.BAD_REQUEST, "Opportunity ID cannot be empty");
         }
-        Opportunity opportunity = getOpportunityById(opportunityId);
+        Opportunity opportunity = getPureOpportunityById(opportunityId);
         if(opportunity.getCandidatesIds()==null){
             opportunity.setCandidatesIds(new ArrayList<>());
             opportunity.getCandidatesIds().add(candidateId);

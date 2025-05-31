@@ -198,11 +198,8 @@ public class UserService {
         }
     }
 
-        Query query = new Query(Criteria.where("id").is(user.getId()));
 
-        Update update = new Update().set("notification", notifications);
-        mongoTemplate.updateFirst(query, update, User.class);
-    }
+
     public UserPaginationDto getUserpagination(int page, int size,String search) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "nom"));
 

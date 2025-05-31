@@ -14,7 +14,7 @@ public class User {
     private String password;
     private String description;
     private String DureDeUtilisation;
-    private Typerole role;
+    private Role role;
     private String ville;
     private List<String> Favorites;
     private String imageId;

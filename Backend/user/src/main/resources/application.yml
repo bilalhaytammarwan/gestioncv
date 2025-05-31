@@ -5,12 +5,9 @@ spring:
     mongodb:
 
       host: localhost
-      port: 27019
+      port: 27017
       database: mongodb_container
-      username: admin
-      password: admin
-      authentication-database: admin
-      auto-index-creation: true
+
 
   cloud:
     config:
@@ -26,9 +23,7 @@ jwt:
 
 server:
   port: 8228
-candidate:
-  service:
-    url: http://localhost:8888
+
 
 eureka:
   instance:

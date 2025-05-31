@@ -11,6 +11,10 @@
         <option value="$PROJECT_DIR$/attachement/pom.xml" />
         <option value="$PROJECT_DIR$/userToken/pom.xml" />
         <option value="$PROJECT_DIR$/opportunity/pom.xml" />
+        <option value="$PROJECT_DIR$/user/pom.xml" />
+        <option value="$PROJECT_DIR$/sendEmail-service/pom.xml" />
+        <option value="$PROJECT_DIR$/seach/pom.xml" />
+        <option value="$PROJECT_DIR$/opportunity-service/pom.xml" />
       </list>
     </option>
   </component>

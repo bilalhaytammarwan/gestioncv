@@ -10,7 +10,10 @@
         <module name="config-server" />
         <module name="userToken" />
         <module name="Opportunity-service" />
+        <module name="sendEmail-service" />
+        <module name="search-service" />
         <module name="discovory" />
+        <module name="user" />
         <module name="gateway" />
       </profile>
       <profile name="Annotation profile for attachement-module" enabled="true">
@@ -42,6 +45,9 @@
       <module name="config-server" options="-parameters" />
       <module name="discovory" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="search-service" options="-parameters" />
+      <module name="sendEmail-service" options="-parameters" />
+      <module name="user" options="-parameters" />
       <module name="userToken" options="-parameters" />
     </option>
   </component>
