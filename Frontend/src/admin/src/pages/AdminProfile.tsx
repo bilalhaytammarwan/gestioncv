@@ -55,7 +55,7 @@ const AdminProfile: React.FC = () => {
  useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:8228/api/user/get/${id}`);
+        const response = await axios.get<Client>(`http://localhost:8228/api/user/${id}`);
         setProfileData(response.data);
       } catch (error) {
         console.error('Failed to fetch user:', error);
@@ -128,7 +128,7 @@ const AdminProfile: React.FC = () => {
         </Grid>
 
         {/* Profile Details */}
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} >
           <Card>
             <CardContent sx={{ p: { xs: 2, md: 4 } }}>
               <Typography variant="h5" gutterBottom>
@@ -235,47 +235,8 @@ const AdminProfile: React.FC = () => {
           </Card>
         </Grid>
 
-        {/* Quick Stats */}
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardContent sx={{ p: { xs: 2, md: 4 } }}>
-              <Typography variant="h5" gutterBottom>
-                Quick Stats
-              </Typography>
-              <Divider sx={{ mb: 3 }} />
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 2,
-                      textAlign: 'center',
-                      bgcolor: theme.palette.primary.light,
-                      color: theme.palette.primary.contrastText,
-                    }}
-                  >
-                    <Typography variant="h4">150</Typography>
-                    <Typography variant="body2">Total Users</Typography>
-                  </Paper>
-                </Grid>
-                <Grid item xs={6}>
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      p: 2,
-                      textAlign: 'center',
-                      bgcolor: theme.palette.secondary.light,
-                      color: theme.palette.secondary.contrastText,
-                    }}
-                  >
-                    <Typography variant="h4">45</Typography>
-                    <Typography variant="body2">Active Projects</Typography>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
+      
+        
       </Grid>
     </Box>
   );

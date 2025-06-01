@@ -134,6 +134,18 @@ public class UserController {
         List<String> ids = userService.getUserIdsByRole(Role.COMPANY);
         return ResponseEntity.ok(ids);
     }
+    @GetMapping("/get/total/company/approve")
+    public long getcountapprove(){
+        return userService.getApprovedCompanyCount();
+    }
+    @GetMapping("/get/total/client")
+    public long getcountclient(){
+        return userService.getClientCount();
+    }
+    @GetMapping("/get/total/company")
+    public long getcountcompany(){
+        return userService.getCompanyCount();
+    }
 
 
 }

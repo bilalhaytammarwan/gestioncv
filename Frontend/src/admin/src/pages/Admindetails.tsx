@@ -64,6 +64,7 @@ const UserDetails: React.FC = () => {
             <Typography variant="subtitle1"><strong>Password:</strong> {user.password}</Typography>
           <Typography variant="subtitle1"><strong>Email:</strong> {user.email}</Typography>
           <Typography variant="subtitle1"><strong>City:</strong> {user.ville}</Typography>
+          
          
           
 

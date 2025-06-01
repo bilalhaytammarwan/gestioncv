@@ -223,4 +223,12 @@ public class OpportunityService {
         opportunityRepo.save(opportunity);
         return true;
     }
+    public long getTotalOpportunities() {
+        try {
+            return opportunityRepo.count();
+        } catch (Exception e) {
+            log.error("Error counting opportunities: {}", e.getMessage());
+            throw new OpportunityGetException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to get total number of opportunities");
+        }
+    }
 }

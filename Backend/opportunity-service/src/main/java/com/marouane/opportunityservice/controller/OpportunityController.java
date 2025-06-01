@@ -93,4 +93,8 @@ return opportunityService.getop(id);
         opportunityService.deleteOpportunity(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/get/total/annoucement")
+    public long gettotalAnnoucement(){
+      return  opportunityService.getTotalOpportunities();
+    }
 }

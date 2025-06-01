@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @FeignClient(name = "attachement-service",url = "http://localhost:8082/api/uploads")
 public interface Attachementservice {
-    @GetMapping("/image/getimage")
+    @GetMapping("/image/get")
     String getImagebyid(@RequestParam("userId")String userid );
     @GetMapping("/cv/get")
     String getCvbyid(@RequestParam("userId")String userid );

@@ -38,6 +38,16 @@ public class DocController {
             return ResponseEntity.status(500).body(e.getMessage());
         }
     }
+    @GetMapping("/get")
+    public String getDocprofil(@RequestParam("userId") String userId) {
+        try{
+
+            Attachement doc = docService.getDoc(userId);
+            return doc.getProfil();
+        }catch (Exception e){
+            return null;
+        }
+    }
     @DeleteMapping
     public ResponseEntity<String> deleteDoc(@RequestParam("userId") String userId) {
         try{

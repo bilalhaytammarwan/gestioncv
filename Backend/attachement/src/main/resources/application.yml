@@ -15,9 +15,7 @@ spring:
 
 server:
   port: 8082
-candidate:
-  service:
-    url: http://localhost:8888
+
 eureka:
   instance:
     hostname: localhost

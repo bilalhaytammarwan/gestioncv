@@ -24,7 +24,8 @@ const TopBar: React.FC<TopBarProps> = ({ onToggleDarkMode, isDarkMode }) => {
   };
   
   const handleUserMenuClose = () => {
-    route("/profile/681a923dbc5e4b0806cdba7f");
+    route("/admin/profile/681a923dbc5e4b0806cdba7f");
+    setAnchorEl(null);
   };
   
   const handleNotificationMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -58,28 +59,8 @@ const TopBar: React.FC<TopBarProps> = ({ onToggleDarkMode, isDarkMode }) => {
         </Box>
         
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={isDarkMode ? 'Light Mode' : 'Dark Mode'}>
-            <IconButton
-              color="inherit"
-              onClick={onToggleDarkMode}
-              sx={{ mx: 1 }}
-            >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </IconButton>
-          </Tooltip>
           
-          <Tooltip title="Notifications">
-            <IconButton
-              color="inherit"
-              onClick={handleNotificationMenuOpen}
-              sx={{ mx: 1 }}
-            >
-              <Badge badgeContent={4} color="error">
-                <Bell size={20} />
-              </Badge>
-            </IconButton>
-          </Tooltip>
-          
+         
           <Tooltip title="Account">
             <IconButton
               color="inherit"
@@ -176,7 +157,7 @@ const TopBar: React.FC<TopBarProps> = ({ onToggleDarkMode, isDarkMode }) => {
           }}
         >
           <MenuItem onClick={handleUserMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleUserMenuClose}>Settings</MenuItem>
+          
           <MenuItem onClick={handleUserMenuClose}>Logout</MenuItem>
         </Menu>
       </Toolbar>

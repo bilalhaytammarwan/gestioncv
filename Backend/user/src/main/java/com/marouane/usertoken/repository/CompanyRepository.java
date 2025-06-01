@@ -1,6 +1,7 @@
 package com.marouane.usertoken.repository;
 
 import com.marouane.usertoken.model.Company;
+import com.marouane.usertoken.model.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,4 +12,8 @@ public interface CompanyRepository extends MongoRepository<Company, String> {
     Page<Company> findByRoleAndNomContainingIgnoreCaseOrRoleAndEmailContainingIgnoreCase(String company, String search, String company1, String search1, Pageable pageable);
 
     Page<Company> findAllByRole(String company, Pageable pageable);
+
+    long countByValid(boolean b);
+
+    long countByRole(Role role);
 }

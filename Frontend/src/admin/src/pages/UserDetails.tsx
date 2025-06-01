@@ -28,6 +28,8 @@ const handleDelete = async () => {
       try {
         const response = await axios.get(`http://localhost:8228/api/user/get/${id}`);
         setUser(response.data);
+        
+console.log(response.data);
       } catch (error) {
         console.error('Failed to fetch user:', error);
       } finally {
@@ -37,7 +39,6 @@ const handleDelete = async () => {
 
     fetchUser();
   }, [id]);
-
   if (loading) return <Box sx={{ mt: 10, textAlign: 'center' }}><CircularProgress /></Box>;
   if (!user) return <Typography>User not found</Typography>;
 

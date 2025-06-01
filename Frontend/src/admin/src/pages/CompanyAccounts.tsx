@@ -4,6 +4,10 @@ import DataTable from '../components/common/DataTable';
 
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+interface ClientResponse {
+  content: Client[];
+  totalpages: number;
+}
 interface Client {
   id: string;
   nom: string;
@@ -32,6 +36,7 @@ const CompanyAccounts: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
     const [triggerFetch, setTriggerFetch] = useState(false);
     
+    
     const confirmDeleteClient = async () => {
   if (!clientToDelete) return;
   
@@ -52,7 +57,7 @@ const CompanyAccounts: React.FC = () => {
   const fetchData = async (search = '') => {
   setLoading(true);
   try {
-    const response = await axios.get(`http://localhost:8228/api/user/pagination/company`, {
+    const response = await axios.get<ClientResponse>(`http://localhost:8228/api/user/pagination/company`, {
       params: {
         page: page - 1,
         size: rowsPerPage,
@@ -73,7 +78,7 @@ useEffect(() => {
   const navigate = useNavigate();
 
 const handleViewUser = (id: string) => {
-  navigate(`/clients/${id}`);
+  navigate(`/admin/clients/${id}`);
 };
   
   const handleEditClient = (id: string) => {
@@ -141,6 +146,36 @@ const handleViewUser = (id: string) => {
   // Define columns for client data table
   const columns = [
     {
+          id:'photo',
+          format:(value:string,row:Client)=>{
+            console.log(value);
+    return (
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box
+                  component="div"
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: '50%',
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.primary.contrastText,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 'bold',
+                    mr: 2,
+                  }}
+                >
+                 <Avatar
+                         src={`http://localhost:8082/images/${value}`} // the image URL
+                         
+                         sx={{ width: 40, height: 40, mr: 0 }}
+                       />
+                </Box>
+                </Box>);
+          }
+        },
+    {
       id: 'nom',
       label: 'Name',
       minWidth: 180,
@@ -158,23 +193,7 @@ const handleViewUser = (id: string) => {
 
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box
-              component="div"
-              sx={{
-                width: 40,
-                height: 40,
-                borderRadius: '50%',
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 'bold',
-                mr: 2,
-              }}
-            >
-                
-            </Box>
+           
             <Box>
               <Typography variant="body2" fontWeight={500}>
                 {value}
@@ -287,7 +306,7 @@ const handleViewUser = (id: string) => {
       </Typography>
       
       <DataTable
-        title="Manage Clients"
+        title="Manage Company"
         data={data}
         columns={columns}
         onView={handleViewUser}
@@ -296,6 +315,7 @@ const handleViewUser = (id: string) => {
         onApprove={handleApproveClient}
         onReject={handleRejectClient}
         onSearch={handleSearch}
+        showApprovalActions={true}
         searchValue={searchTerm}
       />
        <Stack direction="row" justifyContent="center" mt={4}>

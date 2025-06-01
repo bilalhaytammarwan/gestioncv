@@ -5,6 +5,10 @@ import DataTable from '../components/common/DataTable';
 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+interface ClientResponse {
+  content: Client[];
+  totalpages: number;
+}
 interface Client {
   id: string;
   nom: string;
@@ -50,7 +54,7 @@ const confirmDeleteClient = async () => {
   const fetchData = async (search = '') => {
   setLoading(true);
   try {
-    const response = await axios.get(`http://localhost:8228/api/user/admins/pagination`, {
+    const response = await axios.get<ClientResponse>(`http://localhost:8228/api/user/admins/pagination`, {
       params: {
         page: page - 1,
         size: rowsPerPage,
@@ -71,7 +75,7 @@ useEffect(() => {
   const navigate = useNavigate();
 
 const handleViewUser = (id: string) => {
-  navigate(`/admin/${id}`);
+  navigate(`/admin/getadmin/${id}`);
 };
   
   const handleEditClient = (id: string) => {
@@ -195,11 +199,11 @@ const handleSearch = (term: string) => {
   return (
     <Box>
       <Typography variant="h4" component="h1" sx={{ mb: 4, fontWeight: 700 }}>
-        Client Accounts
+        Admin Accounts
       </Typography>
       
       <DataTable
-        title="Manage Clients"
+        title="Manage Admins"
         data={data}
         columns={columns}
         onView={handleViewUser}

@@ -41,6 +41,15 @@ public class ImageController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+    @GetMapping("/get")
+    public String getImageprofil(@RequestParam("userId") String userId) {
+        try{
+            Attachement image=imageService.getImage(userId);
+            return image.getProfil();
+        }catch (Exception e){
+            return null;
+        }
+    }
 
     @DeleteMapping
     public ResponseEntity<String> deleteImage(@RequestParam("userId") String userId) {

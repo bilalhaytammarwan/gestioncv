@@ -36,6 +36,15 @@ public class CvController {
             return ResponseEntity.status(500).body(e.getMessage());
         }
     }
+    @GetMapping("/get")
+    public String getCvprofil(@RequestParam String userId) {
+        try{
+            cvService.getCv(userId);
+            return cvService.getCv(userId).getProfil();
+        }catch (Exception e){
+            return null;
+        }
+    }
     @DeleteMapping
     public ResponseEntity<String> deleteCv(@RequestParam String userId) {
         try{

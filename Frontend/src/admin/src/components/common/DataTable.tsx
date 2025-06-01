@@ -30,6 +30,7 @@ interface DataTableProps {
   onReject?: (id: string) => void;
   onSearch?: (searchTerm: string) => void;
   searchValue?: string;
+  showApprovalActions?: boolean; 
 }
 
 const DataTable: React.FC<DataTableProps> = ({
@@ -42,7 +43,8 @@ const DataTable: React.FC<DataTableProps> = ({
   onApprove,
   onReject,
   onSearch,
-  searchValue=''
+  searchValue='',
+   showApprovalActions = false 
 
 }) => {
   const theme = useTheme();
@@ -174,14 +176,7 @@ const DataTable: React.FC<DataTableProps> = ({
   }}
 />
         
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<Download size={18} />}
-          size="small"
-        >
-          Export
-        </Button>
+       
       </Box>
       
       <TableContainer
@@ -279,34 +274,27 @@ const DataTable: React.FC<DataTableProps> = ({
           </MenuItem>
         )}
         
-        {onEdit && (
-          <MenuItem onClick={() => handleAction('edit')}>
-            <ListItemIcon>
-              <Edit size={18} />
-            </ListItemIcon>
-            <ListItemText>Edit</ListItemText>
-          </MenuItem>
-        )}
+       
         
-        {(onApprove || onReject) && <Divider />}
-        
-        {onApprove && (
-          <MenuItem onClick={() => handleAction('approve')}>
-            <ListItemIcon>
-              <Check size={18} color={theme.palette.success.main} />
-            </ListItemIcon>
-            <ListItemText>Approve</ListItemText>
-          </MenuItem>
-        )}
-        
-        {onReject && (
-          <MenuItem onClick={() => handleAction('reject')}>
-            <ListItemIcon>
-              <X size={18} color={theme.palette.error.main} />
-            </ListItemIcon>
-            <ListItemText>Reject</ListItemText>
-          </MenuItem>
-        )}
+        {showApprovalActions && (onApprove || onReject) && <Divider />}
+  
+  {showApprovalActions && onApprove && (
+    <MenuItem onClick={() => handleAction('approve')}>
+      <ListItemIcon>
+        <Check size={18} color={theme.palette.success.main} />
+      </ListItemIcon>
+      <ListItemText>Approve</ListItemText>
+    </MenuItem>
+  )}
+  
+  {showApprovalActions && onReject && (
+    <MenuItem onClick={() => handleAction('reject')}>
+      <ListItemIcon>
+        <X size={18} color={theme.palette.error.main} />
+      </ListItemIcon>
+      <ListItemText>Reject</ListItemText>
+    </MenuItem>
+  )}
         
         {onDelete && <Divider />}
         

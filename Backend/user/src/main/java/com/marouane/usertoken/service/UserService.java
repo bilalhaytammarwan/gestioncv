@@ -347,4 +347,13 @@ public class UserService {
         user.setAdminRole(AdminRole.Sous_Admin);
         userRepository.save(user);
     }
+    public long getApprovedCompanyCount() {
+        return companyRepository.countByValid(true);
+    }
+    public long getClientCount() {
+        return candidateRepository.countByRole("CANDIDATE");
+    }
+    public long getCompanyCount() {
+        return companyRepository.countByRole(Role.COMPANY);
+    }
 }

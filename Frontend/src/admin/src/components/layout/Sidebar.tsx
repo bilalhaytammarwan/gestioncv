@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import {
   Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText,
@@ -9,7 +9,14 @@ import {
   Megaphone, Settings, LogOut, Menu,
   UserPlus
 } from 'lucide-react';
+import axios from 'axios';
 
+interface Admin {
+  id: string;
+  name: string;
+  email: string;
+  
+}
 interface SidebarProps {
   isMobileOpen: boolean;
   onMobileClose: () => void;
@@ -33,7 +40,20 @@ const NavItem = ({
 }) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const [admin, setAdmin] = useState<Admin | null>(null);
   const theme = useTheme();
+  useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const response = await axios.get<Admin>(`http://localhost:8228/api/user/get/681a923dbc5e4b0806cdba7f`);
+          setAdmin(response.data);
+        } catch (error) {
+          console.error('Failed to fetch user:', error);
+        } 
+      };
+  
+      fetchUser();
+    },[]);
   
   const active = path ? location.pathname === path : false;
   const hasChildren = children && children.length > 0;
@@ -129,6 +149,7 @@ const NavItem = ({
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen, onMobileClose, onMobileOpen }) => {
+ 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   
@@ -156,55 +177,49 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen, onMobileClose, onMobile
             mb: 2,
           }}
         >
-          <Typography variant="h4" color="white">JM</Typography>
+          <Typography variant="h4" color="white">AD</Typography>
         </Avatar>
-        <Typography variant="h6" color="textPrimary">
-          Job Management
-        </Typography>
-        <Typography variant="body2" color="textSecondary">
-          Administration Panel
-        </Typography>
+      
+<Typography variant="body2" component="div" color="textSecondary">
+  Administration 
+</Typography>
       </Box>
       <Box component="nav" sx={{ flex: 1, px: 2 }}>
         <List>
           <NavItem 
             title="Dashboard" 
             icon={<LayoutDashboard size={24} />} 
-            path="/"
+            path="/admin"
           />
           <NavItem 
             title="Companies" 
             icon={<Building2 size={24} />} 
-            path="/companies"
+            path="/admin/companies"
           />
           <NavItem 
             title="Clients" 
             icon={<Users size={24} />} 
-            path="/clients"
+            path="/admin/clients"
           />
           <NavItem 
             title="Admins" 
             icon={<Users size={24} />} 
-            path="/admins"
+            path="/admin/admins"
           />
           <NavItem 
             title="Announcements" 
             icon={<Megaphone size={24} />} 
             children={[
-              { title: 'Company Announcements', path: '/announcements/company' },
-              { title: 'Client Announcements', path: '/announcements/client' },
+              { title: 'Company Announcements', path: '/admin/announcements/company' },
+             
             ]} 
           />
           <NavItem 
-            title="Clients" 
+            title="Add sub admins" 
             icon={<UserPlus size={24} />} 
-            path="/addsubadmin"
+            path="/admin/addsubadmin"
           />
-          <NavItem 
-            title="Settings" 
-            icon={<Settings size={24} />} 
-            path="/settings"
-          />
+         
         </List>
       </Box>
       <Box

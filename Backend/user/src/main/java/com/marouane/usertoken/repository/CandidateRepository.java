@@ -14,4 +14,6 @@ public interface CandidateRepository extends MongoRepository<Candidate, String> 
     Page<Candidate> findByRoleAndNomContainingIgnoreCaseOrRoleAndEmailContainingIgnoreCase(String candidate, String search, String candidate1, String search1, Pageable pageable);
 
     Page<Candidate> findAllByRole(String candidate, Pageable pageable);
+
+    long countByRole(String candidate);
 }

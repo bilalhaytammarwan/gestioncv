@@ -11,11 +11,16 @@ import {
   Divider,
   useTheme,
   CircularProgress,
-  Grid
+  Grid,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogActions
 } from '@mui/material';
 import { ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
 import axios from 'axios';
 import { AccessTime, LocationOn, MonetizationOn, Public, Work } from '@mui/icons-material';
+import { DialogTitle } from '@headlessui/react';
 
 interface Announcement {
   title?: string;
@@ -60,11 +65,21 @@ const AnnouncementDetails: React.FC = () => {
   const [announcement, setAnnouncement] = useState<Announcement | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+    
+  const handleDelete = async () => {
+   
+    try {
+      await axios.delete(`http://localhost:8338/api/opportunity/${id}`);
+      navigate('/admin/announcements/company');
+    } catch (error) {
+      console.error('Failed to delete user:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchAnnouncement = async () => {
       try {
-        const response = await axios.get(`http://localhost:8090/api/opportunity/company/${id}`);
+        const response = await axios.get<Announcement>(`http://localhost:8338/api/opportunity/company/${id}`);
         setAnnouncement(response.data);
       } catch (error) {
         console.error('Error fetching announcement:', error);
@@ -81,7 +96,7 @@ const AnnouncementDetails: React.FC = () => {
 
   const handleApprove = async () => {
     try {
-      await axios.put(`http://localhost:8090/api/announcements/${id}/approve`);
+      await axios.put(`http://localhost:8338/api/announcements/${id}/approve`);
       setAnnouncement(prev => prev ? { ...prev, status: 'published' } : null);
     } catch (error) {
       console.error('Error approving announcement:', error);
@@ -90,7 +105,7 @@ const AnnouncementDetails: React.FC = () => {
 
   const handleReject = async () => {
     try {
-      await axios.put(`http://localhost:8090/api/announcements/${id}/reject`);
+      await axios.put(`http://localhost:8338/api/announcements/${id}/reject`);
       setAnnouncement(prev => prev ? { ...prev, status: 'rejected' } : null);
     } catch (error) {
       console.error('Error rejecting announcement:', error);
@@ -134,6 +149,8 @@ const AnnouncementDetails: React.FC = () => {
 //   };
 
    return (
+    <>
+    
     <Paper
       elevation={3}
       sx={{
@@ -142,6 +159,7 @@ const AnnouncementDetails: React.FC = () => {
         backgroundColor: theme.palette.background.paper,
       }}
     >
+      
       <Typography variant="h4" gutterBottom fontWeight="bold">
         {announcement.title || 'Untitled Position'}
       </Typography>
@@ -241,7 +259,18 @@ const AnnouncementDetails: React.FC = () => {
           </ul>
         </Grid>
       </Grid>
+      <Button 
+        variant="contained" 
+        color="error" 
+        sx={{ mt: 3 }}
+        onClick={() => handleDelete()}
+      >
+        Delete Announcement
+      </Button>
+      
+    
     </Paper>
+    </>
   );
 };
 

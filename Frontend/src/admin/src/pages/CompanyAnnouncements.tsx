@@ -18,6 +18,10 @@ import { mockAnnouncements } from '../utils/mockData';
 import axios from 'axios';
 import DataTable from '../components/common/DataTable';
 import { useNavigate } from 'react-router-dom';
+interface Opportunityres{
+   content: Opportunity[];
+  totalpage: number;
+}
 interface Opportunity {
   id: string;
   companyId: string;
@@ -87,7 +91,7 @@ const CompanyAnnouncements: React.FC = () => {
     const fetchData = async (search = '') => {
   setLoading(true);
   try {
-    const response = await axios.get(`http://localhost:8090/api/opportunity/pagination/by-companies`, {
+    const response = await axios.get<Opportunityres>(`http://localhost:8338/api/opportunity/pagination/by-companies`, {
       params: {
         page: page - 1,
         size: rowsPerPage,
@@ -95,7 +99,7 @@ const CompanyAnnouncements: React.FC = () => {
       }
     });
     setData(response.data.content || response.data);
-    setTotalPages(response.data.totalpages || 1);
+    setTotalPages(response.data.totalpage || 1);
   } catch (error) {
     console.error('Error fetching data:', error);
   } finally {
@@ -108,7 +112,7 @@ const CompanyAnnouncements: React.FC = () => {
 
   console.log(data)
     const handleViewcompany = (id: string) => {
-      navigate(`/company/${id}`);
+      navigate(`/admin/company/${id}`);
     };
       const handleDeleteClient = (id: string) => {
   setannonceToDelete(id);
@@ -229,11 +233,11 @@ const handleSearch = (term: string) => {
     return (
       <Box>
         <Typography variant="h4" component="h1" sx={{ mb: 4, fontWeight: 700 }}>
-          Company Accounts
+          Company Annoucement
         </Typography>
         
         <DataTable
-          title="Manage Clients"
+          title="Manage Annoucement"
           data={data}
           columns={columns}
           onView={handleViewcompany}
