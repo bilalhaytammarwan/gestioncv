@@ -6,6 +6,8 @@
     <file url="file://$PROJECT_DIR$/Backend/discovory/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Backend/gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Backend/opportunity-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Backend/userToken/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Backend/seach/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Backend/sendEmail-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Backend/user/src/main/java" charset="UTF-8" />
   </component>
 </project>

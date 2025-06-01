@@ -11,14 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/candidate")
+@RequiredArgsConstructor
 public class CandidateController {
 
     private final CandidateRepository candidateRepository;
     private final CandidateService candidateService;
-    CandidateController(CandidateRepository candidateRepository, CandidateService candidateService) {
-        this.candidateRepository = candidateRepository;
-        this.candidateService = candidateService;
-    }
 
     @GetMapping
     public ResponseEntity<List<Candidate>> getCandidate() {

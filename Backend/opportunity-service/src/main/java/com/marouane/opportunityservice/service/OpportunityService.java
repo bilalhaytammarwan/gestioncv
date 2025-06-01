@@ -141,7 +141,6 @@ public class OpportunityService {
                 e.getYearsOfExperience(),
                 e.getTags(),
                 e.getUrl()
-
         );
 
 

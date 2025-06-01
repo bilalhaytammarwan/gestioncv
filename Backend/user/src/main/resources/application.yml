@@ -1,4 +1,9 @@
 spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+  config:
+    import: optional:configserver:http://localhost:8888
   application:
     name: User-Token
   data:
@@ -6,17 +11,7 @@ spring:
 
       host: localhost
       port: 27017
-      database: mongodb_container
-
-
-  cloud:
-    config:
-      uri: http://localhost:8888
-  config:
-    import: optional:configserver:http://localhost:8888
-
-
-
+      database: User_DB
 
 jwt:
   Hmac-secret: "CqARLzJ/cU6OYYqMAC33pRIrcHX6jRRQ176WoCZ34K4="

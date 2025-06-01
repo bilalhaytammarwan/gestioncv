@@ -4,27 +4,10 @@ import com.marouane.usertoken.model.Role;
 
 public class Admindto {
     private String id;
-
-
     private String nom;
-
-
     private String telephone;
-
-
     private String email;
     private String password;
-
-
-
-
-
-
-
-
-
-
-
     private String ville;
     private String adminRole;
 

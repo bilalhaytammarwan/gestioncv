@@ -3,7 +3,7 @@ package com.marouane.usertoken.controller;
 import com.marouane.usertoken.model.Company;
 import com.marouane.usertoken.service.ACompanyService;
 import jakarta.validation.Valid;
-import org.springframework.data.mongodb.repository.Aggregation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/company")
+@RequiredArgsConstructor
 public class ACompanyController {
     private final ACompanyService aCompanyService;
 
-    public ACompanyController(ACompanyService aCompanyService) {
-        this.aCompanyService = aCompanyService;
-    }
-//route for testing
     @PostMapping
     public ResponseEntity<Company> createACompany(@Valid @RequestBody Company aCompanyInfo) {
         Company company = aCompanyService.createCompany(aCompanyInfo);

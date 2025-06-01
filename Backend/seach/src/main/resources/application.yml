@@ -1,6 +1,11 @@
 spring:
   application:
     name: search-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+  config:
+    import: optional:configserver:http://localhost:8888
   data:
     mongodb:
       #      host: mongo
@@ -13,11 +18,11 @@ spring:
       database: opportunity-service
       uri: mongodb+srv://root:HOrtoY4iingtohvV@cluster0.9tpnxx1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 eureka:
+  instance:
+    hostname: localhost
   client:
-    register-with-eureka: true
-    fetch-registry: true
     service-url:
-      defaultZone: http://service-registry-app:8761/eureka
+      defaultZone: http://localhost:8761/eureka
 server:
   port: 8448
 

@@ -1,0 +1,14 @@
+attachementmodule\models\Cv.class
+attachementmodule\services\DocService.class
+attachementmodule\repositories\CvRepository.class
+attachementmodule\repositories\AttachementRepository.class
+attachementmodule\controlers\DocController.class
+attachementmodule\services\ImageService.class
+attachementmodule\types\AttachementType.class
+attachementmodule\AttachementModuleApplication.class
+attachementmodule\controlers\ImageController.class
+attachementmodule\controlers\CvController.class
+attachementmodule\models\Role.class
+attachementmodule\models\Attachement.class
+attachementmodule\models\User.class
+attachementmodule\services\CvService.class

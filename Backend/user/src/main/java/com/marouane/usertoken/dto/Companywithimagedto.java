@@ -5,24 +5,15 @@ import com.marouane.usertoken.model.Role;
 public class Companywithimagedto {
     private String id;
 
-
     private String nom;
-
 
     private String telephone;
 
-
     private String email;
-
-
 
     private String description;
 
-
-
-
     private Role role;
-
 
     private String ville;
     private String photo;
