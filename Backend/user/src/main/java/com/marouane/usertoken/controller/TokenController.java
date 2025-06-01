@@ -73,6 +73,9 @@ public class TokenController {
     @PostMapping("/tokens")
     public ResponseEntity<List<Token>> createTokens(@Valid @RequestBody List<@Valid Token> tokens){
         List<Token> tokensObj = tokenService.createTokens(tokens);
+        //        URI location = URI.create("/api/token/" + IntStream.range(0, tokensObj.size())
+//                .mapToObj(i -> (i + 1) + "token=" + tokensObj.get(i).getId())
+//                .collect(Collectors.joining("&")));
         return ResponseEntity.status(HttpStatus.CREATED).body(tokensObj); //ResponseEntity.created(location).body(tokensObj);
     }
 }

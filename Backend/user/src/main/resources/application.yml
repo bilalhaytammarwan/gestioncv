@@ -14,6 +14,14 @@ spring:
       database: User_DB
 
 jwt:
+  secret: "boG0VojP3kc2uXw5fzEVpGWGGhjh0yobw98ROjY5xiY="
+  # 30 min    1800000
+  expiration: 60000
+  issuer: "http://localhost:8080"
+  audience: "http://localhost:3000"
+  refresh-token:
+    # 30 days      2,592,000,000
+    expiration: 120000
   Hmac-secret: "CqARLzJ/cU6OYYqMAC33pRIrcHX6jRRQ176WoCZ34K4="
 
 server:

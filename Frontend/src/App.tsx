@@ -1,7 +1,10 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
-import theme from './theme/theme';
+
+
+
 import Navbar from './components/Layout/Navbar';
 import Footer from './components/Layout/Footer';
 import Home from './pages/Home';
@@ -13,6 +16,10 @@ import Jobs from './pages/Jobs';
 import Candidates from './pages/Candidates';
 import JobDetailsPage from './pages/JobDetailsPage'; // Import the new page component
 import EditOpportunityPage from './pages/EditOpportunityPage'; // Import the new edit page
+import Login from './pages/Login';
+import theme from './theme/theme';
+
+
 
 
 
@@ -33,12 +40,28 @@ import AnnouncementDetails from './admin/src/pages/AnnouncementDetails';
 // ... other imports
 
 function AppContent() {
+  const navigate=useNavigate();
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
 
+  const itslogin = location.pathname.startsWith('/login');
+const iscompany = location.pathname.startsWith('/company');
+  const isadmin=location.pathname.startsWith('/admin');
+    const role = localStorage.getItem("role");
+
+  useEffect(() => {
+    if (role === "COMPANY" && !iscompany) {
+      navigate("/company");
+    } else if (role === "ADMIN" && !isadmin) {
+      navigate("/admin");
+    } else if (role === "CANDIDATE" && (isadmin || iscompany)) {
+      navigate("/");
+    }
+  }, [location.pathname, role, navigate]);
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      {!isAdminRoute && <Navbar />}
+      {!isAdminRoute && !itslogin && <Navbar />}
       <Box sx={{ flex: 1 }}>
         <Routes>
           {/* Public / Company Routes */}
@@ -51,6 +74,8 @@ function AppContent() {
           <Route path="/company/jobs/:id" element={<JobDetailsPage />} />
           <Route path="/company/jobs/:id/edit" element={<EditOpportunityPage />} />
           <Route path="/company/candidates" element={<Candidates />} />
+          <Route path="/login" element={<Login />} />
+          
 
           {/* Admin Routes (minimal layout) */}
        <Route path="/admin" element={<Layout />}>
@@ -71,7 +96,7 @@ function AppContent() {
           <Route path="*" element={<Home />} />
         </Routes>
       </Box>
-      {!isAdminRoute && <Footer />}
+      {!isAdminRoute&& !itslogin  &&  <Footer />}
     </Box>
   );
 }
@@ -86,8 +111,5 @@ function App() {
     </ThemeProvider>
   );
 }
-
-
-
 
 export default App;

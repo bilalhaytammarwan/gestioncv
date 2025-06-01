@@ -138,7 +138,7 @@ public class MessageService {
                 );
             }
             mailSender.send(mimeMessage);
-            log.error("email sent successfully to {}", message.getCompanyEmail());
+            log.info("email sent successfully to {}", message.getCompanyEmail());
         } catch (MessagingException e) {
             log.error("Failed to send email", e);
             throw new RuntimeException(e);

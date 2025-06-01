@@ -2,6 +2,10 @@ package com.marouane.usertoken.repository;
 
 import com.marouane.usertoken.model.Role;
 import com.marouane.usertoken.model.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -20,6 +24,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     List<User> findByRole(Role role);
 
+    Optional<User> findByEmailAndPassword(String email, String password);
 //    Page<User> findByNomContainingOrEmailContaining(String search, String search1, Pageable pageable);
 //
 //    Page<User> findByNomContainingIgnoreCaseOrEmailContainingIgnoreCaseAndRole(String nom, String email, String role, Pageable pageable);

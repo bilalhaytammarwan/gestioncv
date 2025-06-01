@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import {
   Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText,
   Typography, IconButton, Collapse, useMediaQuery, useTheme, Avatar
@@ -152,7 +152,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen, onMobileClose, onMobile
  
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const navigate = useNavigate();
   
+    const handleClose = () => {
+      localStorage.clear(); // or remove specific keys if needed
+      navigate('/login'); // Redirect to login page
+    }
   const content = (
     <Box
       sx={{
@@ -222,7 +227,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen, onMobileClose, onMobile
          
         </List>
       </Box>
-      <Box
+      <Box onClick={handleClose}
         sx={{
           p: 2,
           borderTop: `1px solid ${theme.palette.divider}`,
@@ -236,7 +241,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobileOpen, onMobileClose, onMobile
         >
           <ListItemIcon>
             <LogOut size={24} />
-          </ListItemIcon>
+          </ListItemIcon  >
           <ListItemText primary="Logout" />
         </ListItemButton>
       </Box>

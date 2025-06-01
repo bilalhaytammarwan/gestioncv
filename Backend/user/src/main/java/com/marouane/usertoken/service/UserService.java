@@ -26,10 +26,13 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -43,11 +46,6 @@ public class UserService {
     private final AdminRepository adminRepository;
     private final CandidateRepository candidateRepository;
     private final CompanyRepository companyRepository;
-//    private final BCryptPasswordEncoder encoder;
-//    private final BCryptPasswordEncoder encoder;
-
-
-
 
     public List<User> getUsers() {
         try{
@@ -62,6 +60,22 @@ public class UserService {
         }
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserGetException(HttpStatus.NOT_FOUND, "User not found"));
+    }
+    public boolean getUserByEmailAndPassword(String email, String password) {
+        boolean check = false;
+        if (email == null || email.trim().isEmpty()) {
+            throw new PathVarException(HttpStatus.BAD_REQUEST, "User Email cannot be empty");
+        }
+        if(password==null || password.trim().isEmpty()){
+            throw new PathVarException(HttpStatus.BAD_REQUEST, "User Password cannot be empty");
+        }
+
+        Optional<User> user=userRepository.findByEmailAndPassword(email, password);
+        if(user.isPresent()){
+            check =true;
+        }
+        return check;
+
     }
     public User getUserByEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
@@ -124,7 +138,7 @@ public class UserService {
 
     public User createUser(User user) {
         try {
-            user.setPassword(/*encoder.encode(*/user.getPassword()/*)*/);
+            user.setPassword(user.getPassword());
             User userOutput = userRepository.save(user);
             log.info("User created with ID: {}", userOutput.getId());
             return userOutput;

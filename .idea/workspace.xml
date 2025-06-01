@@ -5,36 +5,93 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9126e5a-69fc-4464-bf3c-06637b257bf3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/config/JwtFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/controller/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/dto/TokenWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/model/AuthenticationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/model/UserPrincipal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/service/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/service/JwtService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/service/LogoutService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/webConfig/WebConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/.mongodb/mongosh/67f2dea654c0b302e66b140a_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/.mongodb/mongosh/67f2dea674493ba9b36b140a_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/.mongodb/mongosh/67f2dea6a91517ac276b140a_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/.mongodb/mongosh/config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/WiredTiger" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/WiredTiger.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/WiredTiger.turtle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/WiredTiger.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/WiredTigerHS.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/_mdb_catalog.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/collection-0-7856519513918163925.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/collection-2-7856519513918163925.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/collection-4-7856519513918163925.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/collection-7-7856519513918163925.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/diagnostic.data/metrics.2025-04-06T20-05-57Z-00000" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/index-1-7856519513918163925.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/index-3-7856519513918163925.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/index-5-7856519513918163925.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/index-6-7856519513918163925.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/index-8-7856519513918163925.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/index-9-7856519513918163925.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/journal/WiredTigerLog.0000000001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/journal/WiredTigerTmplog.0000000002" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/mongod.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/sizeStorer.wt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/data/storage.bson" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/files/cvs/ad63ef28-dd1d-4a56-85b0-4f63c2fa1cd4.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/files/docs/5f041c1a-d0f6-4ef8-b444-aa0abac3d647.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/attachement/target/classes/files/images/a98b7290-41cf-4d5d-8d86-ad6d752789cb.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/sendEmail-service/src/main/java/com/marouane/sendemailservice/service/MessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/sendEmail-service/src/main/java/com/marouane/sendemailservice/service/MessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/UserTokenApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/UserTokenApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/controller/TokenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/controller/TokenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/java/com/marouane/usertoken/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/user/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/user/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/App.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "MarouaneLoukrissi"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MarouaneLoukrissi&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/bilalhaytammarwan/gestioncv.git",
-    "accountId": "bd889480-2e70-49c9-af21-e82993ea63c0"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/bilalhaytammarwan/gestioncv.git&quot;,
+    &quot;accountId&quot;: &quot;bd889480-2e70-49c9-af21-e82993ea63c0&quot;
   }
-}]]></component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 2
-}]]></component>
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2xrokLng56guiDcmRdWPBnJM60I" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -60,6 +117,7 @@
     "Spring Boot.UserTokenApplication.executor": "Run",
     "git-widget-placeholder": "marwan-oppo",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Documents/JavaIntellij/merge-all-final-Copy-me",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -72,6 +130,17 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Documents\JavaIntellij\merge-all-final\Backend\user\src\main\java\com\marouane\usertoken" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.marouane.usertoken.service" />
+      <recent name="com.marouane.usertoken.model" />
+      <recent name="com.marouane.usertoken.controller" />
+      <recent name="com.marouane.usertoken.dto" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean package" />
@@ -166,12 +235,27 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1748705697039</updated>
-      <workItem from="1748705698835" duration="15610000" />
+      <workItem from="1748705698835" duration="21420000" />
+      <workItem from="1748765956322" duration="13000" />
+      <workItem from="1748766030744" duration="6000" />
+      <workItem from="1748772474501" duration="15439000" />
+      <workItem from="1748796432105" duration="8913000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

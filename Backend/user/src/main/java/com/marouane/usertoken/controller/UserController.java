@@ -19,11 +19,9 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
 @RequiredArgsConstructor
-
-
-@CrossOrigin(origins = "http://localhost:5173/")
+@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -84,14 +82,8 @@ public class UserController {
       boolean deleteimage=  attachementservice.deleteImage(id);
 
             userService.deleteUser(id);
-
-
-
-
         return ResponseEntity.noContent().build();
     }
-
-
 
 //    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/email/{email}")
@@ -116,6 +108,7 @@ public class UserController {
             @RequestParam(required = false)String search) {
       return   userService.getUserpagination(page, size,search);
     }
+
     @PutMapping("/update/validation/{id}")
     public void updateUserValidation(@PathVariable String id, @RequestBody Boolean value){
         userService.savevalidation(id,value);

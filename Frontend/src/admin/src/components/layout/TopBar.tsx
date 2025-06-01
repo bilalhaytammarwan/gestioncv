@@ -27,6 +27,12 @@ const TopBar: React.FC<TopBarProps> = ({ onToggleDarkMode, isDarkMode }) => {
     route("/admin/profile/681a923dbc5e4b0806cdba7f");
     setAnchorEl(null);
   };
+    const navigate = useNavigate();
+
+  const handleClose = () => {
+    localStorage.clear(); // or remove specific keys if needed
+    navigate('/login'); // Redirect to login page
+  }
   
   const handleNotificationMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setNotificationAnchorEl(event.currentTarget);
@@ -158,7 +164,7 @@ const TopBar: React.FC<TopBarProps> = ({ onToggleDarkMode, isDarkMode }) => {
         >
           <MenuItem onClick={handleUserMenuClose}>Profile</MenuItem>
           
-          <MenuItem onClick={handleUserMenuClose}>Logout</MenuItem>
+          <MenuItem onClick={handleClose}>Logout</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>

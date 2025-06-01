@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Briefcase as BriefcaseBusiness, Menu as MenuIcon, Bell, User, BookmarkPlus, LogOut } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const theme = useTheme();
@@ -29,9 +29,11 @@ const Navbar: React.FC = () => {
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setProfileAnchorEl(event.currentTarget);
   };
-
+  const navigate = useNavigate();
   const handleProfileMenuClose = () => {
-    setProfileAnchorEl(null);
+      localStorage.clear(); // or remove specific keys if needed
+      navigate('/login'); // Redirect to login page
+      setProfileAnchorEl(null);
   };
 
   const toggleDrawer = (open: boolean) => {
